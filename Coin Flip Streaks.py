@@ -1,11 +1,13 @@
 import random
 
-
-numberofstreaks = 0
+# changeable variables
 exprange = 10000
 flipsides = ['T', 'H']
 streak = 6
+
+# do not change below
 count = 1
+numberofstreaks = 0
 
 a = flipsides[random.randint(0, 1)]
 
@@ -21,5 +23,6 @@ for i in range(exprange - 1):
 
 chance = numberofstreaks / (exprange/streak)
 
+# output
 print('number of streaks: ', + numberofstreaks)
 print(f'Chance of streak: {numberofstreaks/100:.2f}%')
