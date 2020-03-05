@@ -1,1 +1,1 @@
-pprint.pformat(count)
+inventory.get(v)
