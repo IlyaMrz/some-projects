@@ -1,6 +1,6 @@
 import re
 x = open(
-    'C:\\Games\\VScodeProjects\\some-projects\\rawSongs.txt').read()
+    'C:\\Games\\VScodeProjects\\some-projects\\file2.txt').read()
 
 # x = input('Enter text: ')
 
@@ -8,7 +8,8 @@ z = []
 
 for item in x:
     if item != ':' and not item.isdigit():
-        z += item
+        if item != '.':
+            z += item
 
 for i in z:
     print(i, end='')
