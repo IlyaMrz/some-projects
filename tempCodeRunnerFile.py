@@ -1,1 +1,1 @@
-inventory.get(v)
+print('\n')
