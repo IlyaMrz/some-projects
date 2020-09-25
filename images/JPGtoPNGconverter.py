@@ -11,15 +11,17 @@ conv_to = 'png'  # choose a format convert to
 dir_path = os.path.dirname(os.path.realpath(__file__))
 # Grab first and second arguments
 try:
-    first = int(argv[1])  # folder name where we should pick up images
-    first = f'{dir_path}\\{first}'
-    second = int(argv[2])  # folder where we should put converted images
-    second = f'{dir_path}\\{second}\\'
+    # folder name where we should pick up images
+    first = dir_path+'\\'+str(argv[1])+'\\'
+    print(first)
+    # folder where we should put converted images
+    second = dir_path+'\\'+str(argv[2])+'\\'
+
 except:
     first = dir_path
     second = f'{dir_path}\\new\\'
     print(
-        f'No arguments were given. Defaults paths setted from \"{first}\" to \"{second}\" ')
+        f'No arguments were given. Defaults paths setted from: \n \"{first}\" \n to: \n \"{second}\" ')
 
 # Check if new\ exist if not create it
 if not os.path.isdir(second):
@@ -31,8 +33,9 @@ if not os.path.isdir(second):
 images = [f for f in os.listdir(first) if os.path.splitext(f)[-1] == '.jpg']
 
 for image in images:
-    opend = Image.open(image)
     name = os.path.splitext(image)[0]
+    image = os.path.join(first, image)
+    opend = Image.open(image)
     opend.save(f'{second}{name}.{conv_to}', conv_to)
     print(
         f'{image} <<< CONVERTED to \"{os.path.splitext(image)[0]}.{conv_to}\" and saved.')
