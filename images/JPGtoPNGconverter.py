@@ -1,5 +1,6 @@
 # Image files should be in a folder with a script or in a folder in descent tree from a script.
 # directories of which you givin like an arguments
+# You can run a script with "python *script.py 1 2" where 1 nd 2 folders
 
 
 from sys import argv
