@@ -13,7 +13,6 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 try:
     # folder name where we should pick up images
     first = dir_path+'\\'+str(argv[1])+'\\'
-    print(first)
     # folder where we should put converted images
     second = dir_path+'\\'+str(argv[2])+'\\'
 
