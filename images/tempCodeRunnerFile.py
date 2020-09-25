@@ -1,1 +1,0 @@
-name}{os.path.splitext(image)[-1]
