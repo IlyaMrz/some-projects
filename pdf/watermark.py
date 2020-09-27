@@ -22,7 +22,7 @@ def pdf_combiner(pdf_list):
 pdf_combiner(pdfs)
 
 twmrk = PyPDF2.PdfFileReader(open('new.pdf', 'rb'))  # to watermark pdf
-watermarkPage = twmrk.getPage(0)
+watermarkPage = wmark.getPage(0)
 
 
 def watermarker(pdfmark, pdf):
@@ -30,7 +30,7 @@ def watermarker(pdfmark, pdf):
         page = pdf.getPage(i)
         page.mergePage(watermarkPage)
         output.addPage(page)
-    with open('newpdf.pdf', 'wb') as f:
+    with open('newpdf_water.pdf', 'wb') as f:
         output.write(f)
 
 
