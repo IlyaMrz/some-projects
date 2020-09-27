@@ -1,3 +1,5 @@
+# combines pdfs, and stamps watermark of first pdf
+
 import PyPDF2
 from sys import argv
 
