@@ -23,7 +23,7 @@ subtext = soup.select('.subtext')
 
 
 def sort_stories_by_votes(hnlist):
-    return sorted(hnlist, key=lambda k: k['4___votes'], reverse=True)
+    return sorted(hnlist, key=lambda k: k['4___Votes'], reverse=True)
 
 
 def create_custom_hn(links, subtext):
@@ -38,7 +38,7 @@ def create_custom_hn(links, subtext):
         if len(vote):
             points = int(vote[0].getText().replace(' points', ''))
             if points > y:
-                hn.append({'1___Title': title, '2___Link': href,
+                hn.append({'0': ' ', '1___Title': title, '2___Link': href,
                            '3___Comments': com_link, '4___Votes': points})
     return sort_stories_by_votes(hn)
 
