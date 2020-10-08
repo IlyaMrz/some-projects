@@ -19,3 +19,5 @@ for i in course_link:
     b = link['href']
     print(link['href'])
 driver.get(b)
+
+# ---
