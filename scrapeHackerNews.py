@@ -5,7 +5,7 @@ from pprint import pprint
 import time
 
 
-# featch all page sourses form all pages which requested
+# fetch all page sourses form all pages which requested
 def multiPageRes(pageNumber=1):
     res = requests.get('http://news.ycombinator.com/news?p=1').text
     if pageNumber > 1:

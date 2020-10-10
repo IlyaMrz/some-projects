@@ -10,38 +10,35 @@ from selenium.common.exceptions import NoSuchElementException
 # from webdriver_manager.chrome import ChromeDriverManager
 import time
 
-email = "knpkaa@gmail.com"
-password = "sY2d$J#!JsEAK7Iu5bwkM*Z5!T&fX"
+email = ""
+password = ""
 
 driver = "C:\\Games\\VScodeProjects\\udemy_automat\\chromedriver.exe"
 chrome_browser = webdriver.Chrome(driver)
 chrome_browser.maximize_window()
 # z = int(input('How Much pages to parse? there is max 17 pages '))
 
-url = 'https://couponscorpion.com/category/100-off-coupons/'
 
-rawUrl = requests.get(url).text
-soup = BeautifulSoup(rawUrl, 'html.parser')
-# link1 = soup.find_all(
-#     'div', {"class": 'newsdetail newstitleblock rh_gr_right_sec'})
-# for link in link1:
-#     print(link['href'])
-# pprint(link1)
+def getScorpLinks(pagenumber):
+    url = f'https://couponscorpion.com/category/100-off-coupons/page/' + \
+        str(pagenumber)
+    rawUrl = requests.get(url).text
+    soup = BeautifulSoup(rawUrl, 'html.parser')
 
-
-links = []
-for div in soup.find_all(
-        'div', {"class": 'newsdetail newstitleblock rh_gr_right_sec'}):
-    for a in div.select('a'):
-        links.append(a['href'])
+    links = []
+    for div in soup.find_all(
+            'div', {"class": 'newsdetail newstitleblock rh_gr_right_sec'}):
+        for a in div.select('a'):
+            links.append(a['href'])
+    pprint(f'{links}================ raw links above ============')
+    return links
 
 
-pprint(f'{links}================ raw links above ============')
+# pprint(f'{links}================ raw links above ============')
 # Get scorpion links and afet get LIST of links directly to courses
 
 
-def reedemCourse(url):
-
+def udemy_login(email_text, password_text):
     chrome_browser.get("https://www.udemy.com/join/login-popup/")
 
     email = chrome_browser.find_element_by_name("email")
@@ -51,6 +48,9 @@ def reedemCourse(url):
     password.send_keys(password_text)
 
     chrome_browser.find_element_by_name("submit").click()
+
+
+def reedemCourse(url):
 
     chrome_browser.get(url)
     print("Trying to Enroll for: " + chrome_browser.title)
@@ -86,10 +86,11 @@ def reedemCourse(url):
 
 
 def getUdemyPhpLinks(links):
-    udemy_php_links = []
     for link in links:
+        print(f'link is >>>>>>>>>> {link}')
+        time.sleep(2)
         chrome_browser.get(link)
-        time.sleep(5)
+        time.sleep(10)
         chrome_browser.find_element_by_xpath(
             '//button[@class="align-right primary slidedown-button"]').click()
         content = chrome_browser.page_source
@@ -97,15 +98,31 @@ def getUdemyPhpLinks(links):
         course_link = soup.find_all('span', {'class': "rh_button_wrapper"})
         for i in course_link:
             phplink = i.find('a', href=True)
+            phplink = phplink['href']
+            print(f'php link >>>>>>>>> {phplink}')
             if phplink is None:
                 print('No Links Found')
-        reedemCourse(phplink)
+        try:
+            reedemCourse(phplink)
+        except:
+            print('something goes wrong')
 
 
-getUdemyPhpLinks(links)
+def main():
+    loop = 0
+    pagenumber = 1
+    while pagenumber < 5:
+        links = getScorpLinks(pagenumber)
+        if loop == 0:
+            udemy_login(email, password)
 
-# go to udemy courses from list of links and click add button if FREE
+        getUdemyPhpLinks(links)
+        pagenumber += 1
+        loop += 1
 
-# after a page click card and enroll if card cost == 0
 
-# repeat so many times as pages entered
+main()
+
+
+print('done')
+chrome_browser.close()
