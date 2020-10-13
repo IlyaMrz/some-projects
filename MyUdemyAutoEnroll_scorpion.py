@@ -1,4 +1,4 @@
-# Maybe some bugs when search for new php link button
+# Script is broken
 from selenium import webdriver
 import requests
 from bs4 import BeautifulSoup
@@ -11,8 +11,9 @@ from selenium.common.exceptions import NoSuchElementException
 # from webdriver_manager.chrome import ChromeDriverManager
 import time
 
-email = ""
-password = ""
+with open('C:\\Games\\VScodeProjects\\udemy_automat\\pas.txt') as f:
+    lines = f.readlines()
+    email, password = lines
 
 driver = "C:\\Games\\VScodeProjects\\udemy_automat\\chromedriver.exe"
 chrome_browser = webdriver.Chrome(driver)
