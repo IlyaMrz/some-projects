@@ -1,4 +1,4 @@
-# Script is broken
+# works but scorpion site gives fake link afet a few redeems
 from selenium import webdriver
 import requests
 from bs4 import BeautifulSoup
@@ -93,8 +93,14 @@ def getUdemyPhpLinks(links):
         time.sleep(2)
         chrome_browser.get(link)
         time.sleep(10)
-        chrome_browser.find_element_by_xpath(
-            '//button[@class="align-right primary slidedown-button"]').click()
+        print('xpath')
+        try:
+            chrome_browser.find_element_by_xpath(
+                '//button[@class="align-right primary slidedown-button"]').click()
+            print('xpath button clicked')
+        except:
+            print('no xpath button')
+            pass
         content = chrome_browser.page_source
         soup = BeautifulSoup(content, 'html.parser')
         course_link = soup.find_all('span', {'class': "rh_button_wrapper"})
@@ -107,7 +113,7 @@ def getUdemyPhpLinks(links):
         try:
             reedemCourse(phplink)
         except:
-            print('something goes wrong')
+            print('something goes wrong. prabobly scorpion gives fake link')
 
 
 def main():
