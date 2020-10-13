@@ -48,26 +48,6 @@ def udemy_login(email_text, password_text):
     chrome_browser.find_element_by_name("submit").click()
 
 
-def trueUdemylink(link, truelinks):
-    res3 = requests.get(link).text
-    soup3 = BeautifulSoup(res3, 'html.parser')
-    for item in soup3.find('div', {'class': 'ui segment'}):
-        try:
-            a = item['href']
-            truelinks.append(a)
-            pprint(a)
-        except:
-            pass
-
-
-def findUdemylink(link, truelinks):
-    res2 = requests.get(link).text
-    soup2 = BeautifulSoup(res2, 'html.parser')
-    link2 = soup2.find('a', {'class': 'ui big inverted green button discBtn'})
-    link2 = link2['href']
-    trueUdemylink(link2, truelinks)
-
-
 def redeemUdemyCourse(url):
 
     chrome_browser.get(url)
