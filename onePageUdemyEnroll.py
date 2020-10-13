@@ -1,5 +1,6 @@
 # grabs link from yofreesamples.com/courses/free-discounted-udemy-courses-list/
 #  and autoenroll them
+# press Ctrl+C to break script
 from selenium import webdriver
 import requests
 from bs4 import BeautifulSoup
