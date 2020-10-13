@@ -11,6 +11,9 @@ from selenium.common.exceptions import NoSuchElementException
 # from webdriver_manager.chrome import ChromeDriverManager
 import time
 
+headers = {
+    'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/37.0.2062.94 Chrome/37.0.2062.94 Safari/537.36'}
+
 with open('C:\\Games\\VScodeProjects\\udemy_automat\\pas.txt') as f:
     lines = f.readlines()
     email, password = lines
@@ -24,7 +27,7 @@ chrome_browser.maximize_window()
 def getScorpLinks(pagenumber):
     url = f'https://couponscorpion.com/category/100-off-coupons/page/' + \
         str(pagenumber)
-    rawUrl = requests.get(url).text
+    rawUrl = requests.get(url, headers=headers).text
     soup = BeautifulSoup(rawUrl, 'html.parser')
 
     links = []
@@ -41,7 +44,8 @@ def getScorpLinks(pagenumber):
 
 
 def udemy_login(email_text, password_text):
-    chrome_browser.get("https://www.udemy.com/join/login-popup/")
+    chrome_browser.get(
+        "https://www.udemy.com/join/login-popup/")
 
     email = chrome_browser.find_element_by_name("email")
     password = chrome_browser.find_element_by_name("password")
