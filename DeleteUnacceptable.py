@@ -1,10 +1,10 @@
 import re
 
 rawSongs = open(
-    'C:\\Games\\VScodeProjects\\some-projects\\rawSongs.txt').read()
+    '.\\rawSongs.txt').read()
 # x = list(input('enter songs'))
 writeSongs = open(
-    'C:\\Games\\VScodeProjects\\some-projects\\tracks.txt', 'w')
+    '.\\tracks.txt', 'w')
 
 # s = rawSongs
 # s = re.sub(r"\d+:\d+", "", s)

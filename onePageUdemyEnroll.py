@@ -1,4 +1,5 @@
-# grabs link from discudemy and autoenroll them
+# grabs link from yofreesamples.com/courses/free-discounted-udemy-courses-list/
+#  and autoenroll them
 from selenium import webdriver
 import requests
 from bs4 import BeautifulSoup
@@ -8,14 +9,15 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
-# from webdriver_manager.chrome import ChromeDriverManager
 import time
 
 
+# Change path to file with 2 lines email and password
 with open('C:\\Games\\VScodeProjects\\udemy_automat\\pas.txt') as f:
     lines = f.readlines()
     email, password = lines
 
+# Change path to webdriver path
 driver = "C:\\Games\\VScodeProjects\\udemy_automat\\chromedriver.exe"
 chrome_browser = webdriver.Chrome(driver)
 chrome_browser.maximize_window()

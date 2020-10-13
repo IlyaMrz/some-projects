@@ -11,7 +11,6 @@ from selenium.common.exceptions import NoSuchElementException
 # from webdriver_manager.chrome import ChromeDriverManager
 import time
 
-
 with open('C:\\Games\\VScodeProjects\\udemy_automat\\pas.txt') as f:
     lines = f.readlines()
     email, password = lines
@@ -19,18 +18,6 @@ with open('C:\\Games\\VScodeProjects\\udemy_automat\\pas.txt') as f:
 driver = "C:\\Games\\VScodeProjects\\udemy_automat\\chromedriver.exe"
 chrome_browser = webdriver.Chrome(driver)
 chrome_browser.maximize_window()
-
-
-def getLinks():
-    links = []
-    res = requests.get(
-        'https://yofreesamples.com/courses/free-discounted-udemy-courses-list/').text
-    soup = BeautifulSoup(res, 'html.parser')
-    for i in soup.findAll('a', {'class': 'btn btn-md btn-success'}):
-        link = i['href']
-        links.append(link)
-        print(link)
-    return links
 
 
 def udemy_login(email_text, password_text):
@@ -64,6 +51,25 @@ def findUdemylink(link, truelinks):
     link2 = soup2.find('a', {'class': 'ui big inverted green button discBtn'})
     link2 = link2['href']
     trueUdemylink(link2, truelinks)
+
+
+def getLinks(page):
+    print('PLEASE WAIT WE ARE GETTING UDEMY LINKS ><><><><><><><><')
+    res = requests.get(f'https://www.discudemy.com/all/{str(page)}').text
+    soup = BeautifulSoup(res, 'html.parser')
+    elems = soup.findAll('section', {"class": 'card'})
+    truelinks = []
+    for i in elems:
+        try:
+            price = i.select('div.meta > span:nth-child(2)')[0].text.strip()
+            if len(price) > 3:
+                link = i.select('a')
+                link = link[0]['href']
+                findUdemylink(link, truelinks)
+        except IndexError:
+            pass
+    return(truelinks)
+# discounted link send to funct which find TRUE link to udemy
 
 
 def redeemUdemyCourse(url):
@@ -102,15 +108,23 @@ def redeemUdemyCourse(url):
 
 
 def main():
-    udemy_login(email, password)
-    for link in getLinks():
-        try:
-            redeemUdemyCourse(link)
-        except KeyboardInterrupt:
-            print('===== user interruption =====')
-            break
-        except BaseException as e:
-            print("Unable to enroll for this course either because you have already claimed it or the browser window has been closed!")
+    page = 1
+    loop = 0
+    while page < 10:
+        print("Please Wait: Getting the course list from tutorialbar.com...")
+        print("Page: "+str(page)+", Loop run count: "+str(loop))
+        if loop == 0:
+            udemy_login(email, password)
+        for link in getLinks(page):
+            try:
+                redeemUdemyCourse(link)
+            except KeyboardInterrupt:
+                print('===== user interruption =====')
+                break
+            except BaseException as e:
+                print("Unable to enroll for this course either because you have already claimed it or the browser window has been closed!")
+        page += 1
+        loop += 1
 
 
 main()
