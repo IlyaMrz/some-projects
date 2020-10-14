@@ -1,3 +1,7 @@
+# scrapes Udemy coupon links from 3 sites
+# discudemy.com tutorialbar.com yofreesamples.com
+# then it removes duplicates and enrolls them on Udemy
+
 from selenium import webdriver
 import requests
 from bs4 import BeautifulSoup
