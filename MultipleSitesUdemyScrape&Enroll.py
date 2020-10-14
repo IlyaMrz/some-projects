@@ -113,7 +113,7 @@ def trueUdemylink(link, truelinks):
         try:
             a = item['href']
             truelinks.append(a)
-            pprint(f'DiscUdemyLINK {a}')
+            print(f'DiscUdemyLINK {a}')
         except:
             pass
 
