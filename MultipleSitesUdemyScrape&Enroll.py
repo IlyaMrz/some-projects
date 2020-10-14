@@ -13,18 +13,22 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 import time
 
+# ======================== settings here ======================================
+# =============================================================================
 # Change path to file with 2 lines email and password
 with open('C:\\Games\\VScodeProjects\\udemy_automat\\pas.txt') as f:
     lines = f.readlines()
     email, password = lines
 
-number_of_pages = 4  # scrape until this page number
-start_page = 1  # to scrape coupons
-
 # Change path to webdriver path
 driver = "C:\\Games\\VScodeProjects\\udemy_automat\\chromedriver.exe"
 chrome_browser = webdriver.Chrome(driver)
 chrome_browser.maximize_window()
+
+start_page = 1  # to scrape coupons
+number_of_pages = 4  # scrape until this page number
+quantity_yofree = 40  # how much coupons scrape from yofreesamples.com max ~130
+# =============================================================================
 
 
 def udemy_login(email_text, password_text):
@@ -177,7 +181,7 @@ def alllinks():
         page += 1
         alllinks += list1
         alllinks += list3
-    alllinks += list2
+    alllinks += list2[:quantity_yofree]
     return alllinks
 
 
