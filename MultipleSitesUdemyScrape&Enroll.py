@@ -13,7 +13,7 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 import time
 
-# ======================== settings here ======================================
+# ============================= settings here =================================
 # =============================================================================
 # Change path to file with 2 lines email and password
 with open('C:\\Games\\VScodeProjects\\udemy_automat\\pas.txt') as f:
