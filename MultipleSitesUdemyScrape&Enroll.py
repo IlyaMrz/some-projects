@@ -26,8 +26,8 @@ chrome_browser = webdriver.Chrome(driver)
 chrome_browser.maximize_window()
 
 start_page = 1  # to scrape coupons
-number_of_pages = 4  # scrape until this page number
-quantity_yofree = 40  # how much coupons scrape from yofreesamples.com max ~130
+number_of_pages = 5  # scrape until this page number
+quantity_yofree = 50  # how much coupons scrape from yofreesamples.com max ~130
 # =============================================================================
 
 
@@ -205,7 +205,12 @@ def main():
         except BaseException as e:
             print("Unable to enroll for this course either because you have already claimed it or the browser window has been closed!")
 
+    return len(x), len(setx)
 
-main()
-print('done')
+
+a, b = main()
+print('==============================================================')
+print(
+    f'done! Scraped {a} links, and tried to enroll {b} unique links.')
+print('==============================================================')
 chrome_browser.close()
