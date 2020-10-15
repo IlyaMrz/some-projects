@@ -195,7 +195,7 @@ def main():
     x = alllinks()
     setx = set(x)
     print(f'all links: {len(x)}')
-    print(f'uniqe links: {len(setx)}')
+    print(f'unique links: {len(setx)}')
     for link in setx:
         try:
             redeemUdemyCourse(link)
