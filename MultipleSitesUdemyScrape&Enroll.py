@@ -12,18 +12,30 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 import time
+from selenium.webdriver.chrome.options import Options
 
 # ============================= settings here =================================
 # =============================================================================
+# if want login with pass and email
 # Change path to file with 2 lines email and password
-with open('C:\\Games\\VScodeProjects\\udemy_automat\\pas.txt') as f:
-    lines = f.readlines()
-    email, password = lines
+# (Also uncomment in "main()" function udemy_login )
+# and delete 'chrome options' in "here" mark. BUT BETTER USE COOKIES!!!
+#
+# with open('C:\\Games\\VScodeProjects\\udemy_automat\\pas.txt') as f:
+#     lines = f.readlines()
+#     email, password = lines
+
+# change path to your user chrome data (to use cookies)
+chrome_options = Options()
+chrome_options.add_argument(
+    "user-data-dir=C:\\Users\\pk111\\AppData\\Local\\Google\\Chrome\\")
 
 # Change path to webdriver path
 driver = "C:\\Games\\VScodeProjects\\udemy_automat\\chromedriver.exe"
-chrome_browser = webdriver.Chrome(driver)
+chrome_browser = webdriver.Chrome(
+    driver, chrome_options=chrome_options)  # here
 chrome_browser.maximize_window()
+chrome_browser.get('https://www.udemy.com/')
 
 start_page = 1  # to scrape coupons
 number_of_pages = 5  # scrape until this page number
@@ -191,11 +203,12 @@ def alllinks():
 
 
 def main():
-    udemy_login(email, password)
+    # udemy_login(email, password)  # uncomment to use login with pass and email
     x = alllinks()
     setx = set(x)
     print(f'all links: {len(x)}')
     print(f'unique links: {len(setx)}')
+    unable = 0
     for link in setx:
         try:
             redeemUdemyCourse(link)
@@ -204,13 +217,16 @@ def main():
             break
         except BaseException as e:
             print("Unable to enroll for this course either because you have already claimed it or the browser window has been closed!")
+            unable += 1
+    sccss = len(setx)-unable
+    return len(x), len(setx), sccss
 
-    return len(x), len(setx)
 
-
-a, b = main()
+a, b, sccss = main()
 print('==============================================================')
 print(
     f'done! Scraped {a} links, and tried to enroll {b} unique links.')
+print(
+    f'_____ Successfully enrolled {sccss} new courses! (or a few less) _____')
 print('==============================================================')
 chrome_browser.close()
