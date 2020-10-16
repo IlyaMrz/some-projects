@@ -40,8 +40,8 @@ chrome_browser.maximize_window()
 chrome_browser.get('https://www.udemy.com/')
 
 start_page = 1  # to scrape coupons
-number_of_pages = 2  # scrape until this page number
-quantity_yofree = 20  # how much coupons scrape from yofreesamples.com max ~130
+number_of_pages = 5  # scrape until this page number
+quantity_yofree = 50  # how much coupons scrape from yofreesamples.com max ~130
 # =============================================================================
 
 
