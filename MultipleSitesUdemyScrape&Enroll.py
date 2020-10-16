@@ -228,6 +228,6 @@ print('==============================================================')
 print(
     f'done! Scraped {a} links, and tried to enroll {b} unique links.')
 print(
-    f'_____ Successfully enrolled {sccss} new courses! (or a few less) _____')
+    f'____ Successfully enrolled {sccss} new courses! (or a few less) ____')
 print('==============================================================')
 chrome_browser.close()
