@@ -27,6 +27,7 @@ from selenium.webdriver.chrome.options import Options
 
 # change path to your user chrome data (to use cookies)
 # Prabobly u need just change "pk111" to your PC user name
+# First time u need log in manually
 chrome_options = Options()
 chrome_options.add_argument(
     "user-data-dir=C:\\Users\\pk111\\AppData\\Local\\Google\\Chrome\\")
