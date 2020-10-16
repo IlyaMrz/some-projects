@@ -40,8 +40,8 @@ chrome_browser.maximize_window()
 chrome_browser.get('https://www.udemy.com/')
 
 start_page = 1  # to scrape coupons
-number_of_pages = 5  # scrape until this page number
-quantity_yofree = 50  # how much coupons scrape from yofreesamples.com max ~130
+number_of_pages = 2  # scrape until this page number
+quantity_yofree = 20  # how much coupons scrape from yofreesamples.com max ~130
 # =============================================================================
 
 
@@ -105,7 +105,10 @@ def getDiskUdemyLinks(page):
             if len(price) > 3:
                 link = i.select('a')
                 link = link[0]['href']
-                findUdemylink(link, truelinks)
+                try:
+                    findUdemylink(link, truelinks)
+                except:
+                    print('Broken DISKUDEMY link PASSED')
         except IndexError:
             pass
     return(truelinks)
@@ -227,7 +230,7 @@ def main():
 a, b, sccss = main()
 print('==============================================================')
 print(
-    f'done! Scraped {a} links, and tried to enroll {b} unique links.')
+    f' Done! Scraped {a} links, and tried to enroll {b} unique links.')
 print(
     f'____ Successfully enrolled {sccss} new courses! (or a few less) ____')
 print('==============================================================')
