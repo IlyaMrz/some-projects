@@ -108,7 +108,7 @@ def getDiskUdemyLinks(page):
                 try:
                     findUdemylink(link, truelinks)
                 except:
-                    print('Broken DISKUDEMY link PASSED')
+                    print('Broken DISCUDEMY link PASSED')
         except IndexError:
             pass
     return(truelinks)
@@ -228,10 +228,10 @@ def main():
 
 
 a, b, sccss = main()
-print('==============================================================')
+print('===============================================================')
 print(
     f' Done! Scraped {a} links, and tried to enroll {b} unique links.')
 print(
     f'____ Successfully enrolled {sccss} new courses! (or a few less) ____')
-print('==============================================================')
+print('===============================================================')
 chrome_browser.close()
