@@ -30,12 +30,14 @@ def new_ball():
     circle(screen, color, (x, y), r)
 
 
-def new_rect():
-    global x, y, r
-    x = randint(50, 250)
-    y = randint(100, 500)
+def new_rect():  # points for rect not implemented
+    global x2, y2, x3, y3
+    x2 = randint(50, 1050)
+    y2 = randint(100, 800)
+    x3 = randint(50, 1050)
+    y3 = randint(100, 800)
     color = COLORS[randint(0, 5)]
-    rect(screen, color, (x, y, x, y))
+    rect(screen, color, (x2, y2, x3, y3))
 
 
 def click(event):
@@ -46,6 +48,7 @@ def click(event):
         points += 1
         print(points)
     else:
+        print(event.pos)
         print('Missed')
 
 
