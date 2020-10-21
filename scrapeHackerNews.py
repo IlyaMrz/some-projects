@@ -42,9 +42,16 @@ def create_custom_hn(links, subtext):
         if len(vote):
             points = int(vote[0].getText().replace(' points', ''))
             if points > y:
-                hn.append({'0': ' ', '1___Title': title, '2___Link': href,
+                hn.append({'0': '-', '1___Title': title, '2___Link': href,
                            '3___Comments': com_link, '4___Votes': points})
     return sort_stories_by_votes(hn)
 
 
-pprint(create_custom_hn(links, subtext))
+final_list = create_custom_hn(links, subtext)
+pprint(final_list)
+
+# writing scraped news to file:
+with open("db.txt", 'w') as f:
+    for i in final_list:
+        for k, v in i.items():
+            f.write(str(k)+'---' + str(v) + '\n')

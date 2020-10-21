@@ -5,7 +5,7 @@
 from selenium import webdriver
 import requests
 from bs4 import BeautifulSoup
-from pprint import pprint
+# from pprint import pprint
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
