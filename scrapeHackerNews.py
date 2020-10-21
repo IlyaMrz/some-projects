@@ -51,7 +51,7 @@ final_list = create_custom_hn(links, subtext)
 pprint(final_list)
 
 # writing scraped news to file:
-with open("db.txt", 'w') as f:
+with open("C:\\Games\\VScodeProjects\\some-projects\\db.txt", 'w') as f:
     for i in final_list:
         for k, v in i.items():
             f.write(str(k)+'---' + str(v) + '\n')
