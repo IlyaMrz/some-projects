@@ -210,7 +210,7 @@ def alllinks():
 def main():
     # udemy_login(email, password)  # uncomment to use login with pass and email
     x = alllinks()
-    uniqueCoupons = list(dict.fromkeys(x))
+    uniqueCoupons = list(dict.fromkeys(x))  # ordered unique list
     print(f'all links: {len(x)}')
     print(f'unique links: {len(uniqueCoupons)}')
     unable = 0
