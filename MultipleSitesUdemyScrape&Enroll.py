@@ -1,6 +1,6 @@
 # scrapes Udemy coupon links from 3 sites
 # discudemy.com tutorialbar.com yofreesamples.com
-# then it removes duplicates and enrolls them on Udemy
+# then it removes duplicates and enrolls them on Udemy. Python 3.6+
 
 from selenium import webdriver
 import requests
@@ -210,11 +210,11 @@ def alllinks():
 def main():
     # udemy_login(email, password)  # uncomment to use login with pass and email
     x = alllinks()
-    setx = set(x)
+    uniqueCoupons = list(dict.fromkeys(x))
     print(f'all links: {len(x)}')
-    print(f'unique links: {len(setx)}')
+    print(f'unique links: {len(uniqueCoupons)}')
     unable = 0
-    for link in setx:
+    for link in uniqueCoupons:
         try:
             redeemUdemyCourse(link)
         except KeyboardInterrupt:
@@ -223,8 +223,8 @@ def main():
         except BaseException as e:
             print("Unable to enroll for this course either because you have already claimed it or the browser window has been closed!")
             unable += 1
-    sccss = len(setx)-unable
-    return len(x), len(setx), sccss
+    sccss = len(uniqueCoupons)-unable
+    return len(x), len(uniqueCoupons), sccss
 
 
 a, b, sccss = main()
