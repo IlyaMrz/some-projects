@@ -5,7 +5,6 @@
 from selenium import webdriver
 import requests
 from bs4 import BeautifulSoup
-# from pprint import pprint
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -40,8 +39,8 @@ chrome_browser.maximize_window()
 chrome_browser.get('https://www.udemy.com/')
 
 start_page = 1  # to scrape coupons
-number_of_pages = 5  # scrape until this page number
-quantity_yofree = 50  # how much coupons scrape from yofreesamples.com max ~130
+number_of_pages = 4  # scrape until this page number
+quantity_yofree = 40  # how much coupons scrape from yofreesamples.com max ~130
 # =============================================================================
 
 
@@ -122,7 +121,6 @@ def getOnePageLinks():
     for i in soup.findAll('a', {'class': 'btn btn-md btn-success'}):
         link = i['href']
         links2.append(link)
-        # print(link)
     print('received one page links')
     return links2
 
@@ -167,8 +165,6 @@ def getTutorLinks(page):
     soup = BeautifulSoup(response.content, 'html.parser')
 
     links = soup.find('div', class_="rh-post-wrapper").find_all('a')
-    # print(links)
-
     courses = []
 
     x = 0
@@ -200,11 +196,6 @@ def alllinks():
         alllinks += list3
     alllinks += list2[:quantity_yofree]
     return alllinks
-
-
-# x = alllinks()
-# print(len(x))
-# print(len(set(x)))
 
 
 def main():
