@@ -41,6 +41,7 @@ chrome_browser.get('https://www.udemy.com/')
 start_page = 1  # to scrape coupons
 number_of_pages = 5  # scrape until this page number
 quantity_yofree = 50  # how much coupons scrape from yofreesamples.com max ~130
+checkLink = False  # Check if course already in your library. Alpha feature!!!
 # =============================================================================
 
 
@@ -90,6 +91,8 @@ def redeemUdemyCourse(url):
     udemyEnroll = chrome_browser.find_element_by_xpath(
         "//*[@id=\"udemy\"]/div[1]/div[2]/div/div/div/div[2]/form/div[2]/div/div[4]/button")  # Udemy
     udemyEnroll.click()
+    if checkLink == True:
+        addCourseLinkToBD(url)
 
 
 def getDiskUdemyLinks(page):
@@ -198,6 +201,30 @@ def alllinks():
     return alllinks
 
 
+def checkIfCourseOwned(link):
+    with open('MyCourses_1.txt', 'r') as f:
+        file = f.read().splitlines()
+    try:
+        tlink = link.split('?')[0]
+        if tlink in file:
+            state = True
+        else:
+            state = False
+    except:
+        state = False
+    return state
+
+
+def addCourseLinkToBD(link):
+    try:
+        link = link.split('?')[0]
+    except:
+        pass
+    with open('MyCourses_1.txt', 'a') as f:
+        f.write(link+'\n')
+        print(f'New link added to DataBase. Link -> {link}')
+
+
 def main():
     # udemy_login(email, password)  # uncomment to use login with pass and email
     x = alllinks()
@@ -207,7 +234,11 @@ def main():
     unable = 0
     for link in uniqueCoupons:
         try:
-            redeemUdemyCourse(link)
+            if checkLink == True:
+                if checkIfCourseOwned(link) == False:
+                    redeemUdemyCourse(link)
+            else:
+                redeemUdemyCourse(link)
         except KeyboardInterrupt:
             print('===== user interruption =====')
             break
