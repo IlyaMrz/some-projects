@@ -39,10 +39,10 @@ chrome_browser.maximize_window()
 chrome_browser.get('https://www.udemy.com/')
 
 start_page = 1  # to scrape coupons
-number_of_pages = 5  # scrape until this page number
-quantity_yofree = 50  # how much coupons scrape from yofreesamples.com max ~130
+number_of_pages = 2  # scrape until this page number
+quantity_yofree = 10  # how much coupons scrape from yofreesamples.com max ~130
 checkLink = True  # True to check and not enroll if course already owned
-myCoursesFile = 'MyCourses_1.txt'  # to collect courses-"OwnedCoursesCollect.py"
+myCoursesFile = "MyCourses_1.txt"  # not working, need manually change foo
 # =============================================================================
 
 
@@ -60,7 +60,7 @@ def udemy_login(email_text, password_text):
 
 
 def redeemUdemyCourse(url):
-
+    print("almost get url")
     chrome_browser.get(url)
     print("Trying to Enroll for: " + chrome_browser.title)
 
@@ -80,7 +80,12 @@ def redeemUdemyCourse(url):
         udemyEnroll = chrome_browser.find_element_by_xpath(
             "//button[@data-purpose='buy-this-course-button']")  # Udemy
         # check if course FREE 100% and if yes click and add to DB
+        if checkLink == True:
+            addCourseLinkToBD(chrome_browser.current_url)
+
         udemyEnroll.click()
+        global trueNewValidCourses
+        trueNewValidCourses += 1
 
         # Enroll Now 2
         element_present = EC.presence_of_element_located(
@@ -101,8 +106,6 @@ def redeemUdemyCourse(url):
         udemyEnroll = chrome_browser.find_element_by_xpath(
             "//*[@id=\"udemy\"]/div[1]/div[2]/div/div/div/div[2]/form/div[2]/div/div[4]/button")  # Udemy
         udemyEnroll.click()
-        if checkLink == True:
-            addCourseLinkToBD(chrome_browser.current_url)
 
 
 def getDiskUdemyLinks(page):
@@ -212,12 +215,15 @@ def alllinks():
 
 
 def checkIfCourseOwned(link):
-    with open(MyCoursesFile, 'r') as f:
+    print('check1 ')
+    with open('MyCourses_1.txt', 'r') as f:
         file = f.read().splitlines()
     try:
+        print('check2 ')
         tlink = link.split('?')[0]
         if tlink in file:
             state = True
+            print("course already owned")
         else:
             state = False
     except:
@@ -228,10 +234,10 @@ def checkIfCourseOwned(link):
 def addCourseLinkToBD(link):
     try:
         link = link.split('?')[0]
-        with open(MyCoursesFile, 'r') as f:
+        with open('MyCourses_1.txt', 'r') as f:
             file = f.read().splitlines()
         if link not in file:
-            with open(MyCoursesFile, 'a') as f:
+            with open('MyCourses_1.txt', 'a') as f:
                 f.write(link+'\n')
                 print(f'New link added to DataBase. Link -> {link}')
     except:
@@ -263,6 +269,7 @@ def main():
     return len(x), len(uniqueCoupons), sccss
 
 
+trueNewValidCourses = 0
 a, b, sccss = main()
 print('===============================================================')
 print(
@@ -270,4 +277,5 @@ print(
 print(
     f'____ Successfully enrolled {sccss} new courses! (or a few less) ____')
 print('===============================================================')
+print(f'{trueNewValidCourses} new truly valid courses were enrolled')
 chrome_browser.close()
