@@ -20,7 +20,7 @@ chrome_browser.maximize_window()
 def getpage(pageNumber):
     chrome_browser.get(
         f'https://www.udemy.com/home/my-courses/learning/?p={pageNumber}')
-    time.sleep(2)
+    time.sleep(3)
     sp = chrome_browser.page_source
     soup = BeautifulSoup(sp, 'html.parser')
     return soup
@@ -39,7 +39,7 @@ def findAndWriteLinks(innerSoup):
             courseLink = 'https://www.udemy.com' + \
                 str(i["href"]).replace("learn/", "")
             print(courseLink)
-            with open("MyCourses_1.txt", 'a') as file:
+            with open("MyCourses.txt", 'a') as file:
                 file.write(courseLink+'\n')
         except:
             pass
