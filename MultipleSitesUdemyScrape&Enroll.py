@@ -41,7 +41,7 @@ chrome_browser.get('https://www.udemy.com/')
 start_page = 1  # to scrape coupons
 number_of_pages = 5  # scrape until this page number
 quantity_yofree = 50  # how much coupons scrape from yofreesamples.com max ~130
-checkLink = False  # Check if course already in your library. Alpha feature!!!
+checkLink = True  # Check if course already in your library. Alpha feature!!!
 # =============================================================================
 
 
@@ -63,36 +63,45 @@ def redeemUdemyCourse(url):
     chrome_browser.get(url)
     print("Trying to Enroll for: " + chrome_browser.title)
 
-    # Enroll Now 1
-    element_present = EC.presence_of_element_located(
-        (By.XPATH, "//button[@data-purpose='buy-this-course-button']"))
-    WebDriverWait(chrome_browser, 10).until(element_present)
+    element_price_present = EC.presence_of_element_located(
+        (By.XPATH, "//div[@data-purpose='price-text-container']"))
+    WebDriverWait(chrome_browser, 10).until(element_price_present)
 
-    udemyEnroll = chrome_browser.find_element_by_xpath(
-        "//button[@data-purpose='buy-this-course-button']")  # Udemy
-    udemyEnroll.click()
+    priceHtml = chrome_browser.find_element_by_xpath(
+        "//div[@data-purpose='price-text-container']").text
+    if "100% off" in priceHtml:
+        print("Course is truly free and we are getting it!")
+        # Enroll Now 1
+        element_present = EC.presence_of_element_located(
+            (By.XPATH, "//button[@data-purpose='buy-this-course-button']"))
+        WebDriverWait(chrome_browser, 10).until(element_present)
 
-    # Enroll Now 2
-    element_present = EC.presence_of_element_located(
-        (By.XPATH, "//*[@id=\"udemy\"]/div[1]/div[2]/div/div/div/div[2]/form/div[2]/div/div[4]/button"))
-    WebDriverWait(chrome_browser, 10).until(element_present)
+        udemyEnroll = chrome_browser.find_element_by_xpath(
+            "//button[@data-purpose='buy-this-course-button']")  # Udemy
+        # check if course FREE 100% and if yes click and add to DB
+        udemyEnroll.click()
 
-    # Assume sometimes zip is not required because script was originally pushed without this
-    try:
-        zipcode_element = chrome_browser.find_element_by_id(
-            "billingAddressSecondaryInput")
-        zipcode_element.send_keys(zipcode)
+        # Enroll Now 2
+        element_present = EC.presence_of_element_located(
+            (By.XPATH, "//*[@id=\"udemy\"]/div[1]/div[2]/div/div/div/div[2]/form/div[2]/div/div[4]/button"))
+        WebDriverWait(chrome_browser, 10).until(element_present)
 
-        # After you put the zip code in, the page refreshes itself and disables the enroll button for a split second.
-        time.sleep(1)
-    except NoSuchElementException:
-        pass
+        # Assume sometimes zip is not required because script was originally pushed without this
+        try:
+            zipcode_element = chrome_browser.find_element_by_id(
+                "billingAddressSecondaryInput")
+            zipcode_element.send_keys(zipcode)
 
-    udemyEnroll = chrome_browser.find_element_by_xpath(
-        "//*[@id=\"udemy\"]/div[1]/div[2]/div/div/div/div[2]/form/div[2]/div/div[4]/button")  # Udemy
-    udemyEnroll.click()
-    if checkLink == True:
-        addCourseLinkToBD(url)
+            # After you put the zip code in, the page refreshes itself and disables the enroll button for a split second.
+            time.sleep(1)
+        except NoSuchElementException:
+            pass
+
+        udemyEnroll = chrome_browser.find_element_by_xpath(
+            "//*[@id=\"udemy\"]/div[1]/div[2]/div/div/div/div[2]/form/div[2]/div/div[4]/button")  # Udemy
+        udemyEnroll.click()
+        if checkLink == True:
+            addCourseLinkToBD(chrome_browser.current_url)
 
 
 def getDiskUdemyLinks(page):
@@ -218,11 +227,15 @@ def checkIfCourseOwned(link):
 def addCourseLinkToBD(link):
     try:
         link = link.split('?')[0]
+        with open('MyCourses_1.txt', 'r') as f:
+            file = f.read().splitlines()
+        if link not in file:
+            with open('MyCourses_1.txt', 'a') as f:
+                f.write(link+'\n')
+                print(f'New link added to DataBase. Link -> {link}')
     except:
+        print("failed to add link to DB")
         pass
-    with open('MyCourses_1.txt', 'a') as f:
-        f.write(link+'\n')
-        print(f'New link added to DataBase. Link -> {link}')
 
 
 def main():
