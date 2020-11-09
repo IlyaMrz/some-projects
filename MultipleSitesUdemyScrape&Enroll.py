@@ -41,7 +41,8 @@ chrome_browser.get('https://www.udemy.com/')
 start_page = 1  # to scrape coupons
 number_of_pages = 5  # scrape until this page number
 quantity_yofree = 50  # how much coupons scrape from yofreesamples.com max ~130
-checkLink = True  # Check if course already in your library. Alpha feature!!!
+checkLink = True  # True to check and not enroll if course already owned
+MyCoursesFile = 'MyCourses_1.txt'  # to collect courses-"OwnedCoursesCollect.py"
 # =============================================================================
 
 
@@ -211,7 +212,7 @@ def alllinks():
 
 
 def checkIfCourseOwned(link):
-    with open('MyCourses_1.txt', 'r') as f:
+    with open(MyCoursesFile, 'r') as f:
         file = f.read().splitlines()
     try:
         tlink = link.split('?')[0]
@@ -227,10 +228,10 @@ def checkIfCourseOwned(link):
 def addCourseLinkToBD(link):
     try:
         link = link.split('?')[0]
-        with open('MyCourses_1.txt', 'r') as f:
+        with open(MyCoursesFile, 'r') as f:
             file = f.read().splitlines()
         if link not in file:
-            with open('MyCourses_1.txt', 'a') as f:
+            with open(MyCoursesFile, 'a') as f:
                 f.write(link+'\n')
                 print(f'New link added to DataBase. Link -> {link}')
     except:
