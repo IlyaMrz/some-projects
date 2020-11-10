@@ -39,11 +39,11 @@ chrome_browser.maximize_window()
 chrome_browser.get('https://www.udemy.com/')
 
 start_page = 1  # to scrape coupons
-number_of_pages = 5  # scrape until this page number
-quantity_yofree = 50  # how much coupons scrape from yofreesamples.com max ~130
+number_of_pages = 2  # scrape until this page number
+quantity_yofree = 20  # how much coupons scrape from yofreesamples.com max ~130
 # use OwnedCoursesCollect.py to collect owned courses to txt
 checkLink = True  # True to check and not enroll if course already owned
-myCoursesFile = "MyCourses_1.txt"  # not working, need manually change foo
+myCoursesFile = "MyCourses_1.txt"  # file with all your courses which u own
 # =============================================================================
 
 
@@ -217,7 +217,7 @@ def alllinks():
 
 def checkIfCourseOwned(link):
     print('check1 ')
-    with open('MyCourses_1.txt', 'r') as f:
+    with open(myCoursesFile, 'r') as f:
         file = f.read().splitlines()
     try:
         print('check2 ')
@@ -235,10 +235,10 @@ def checkIfCourseOwned(link):
 def addCourseLinkToBD(link):
     try:
         link = link.split('?')[0]
-        with open('MyCourses_1.txt', 'r') as f:
+        with open(myCoursesFile, 'r') as f:
             file = f.read().splitlines()
         if link not in file:
-            with open('MyCourses_1.txt', 'a') as f:
+            with open(myCoursesFile, 'a') as f:
                 f.write(link+'\n')
                 print(f'New link added to DataBase. Link -> {link}')
     except:
