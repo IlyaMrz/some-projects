@@ -216,11 +216,10 @@ def alllinks():
 
 
 def checkIfCourseOwned(link):
-    print('check1 ')
     with open(myCoursesFile, 'r') as f:
         file = f.read().splitlines()
     try:
-        print('check2 ')
+        print('check')
         tlink = link.split('?')[0]
         if tlink in file:
             state = True
