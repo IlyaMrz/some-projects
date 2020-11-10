@@ -39,8 +39,8 @@ chrome_browser.maximize_window()
 chrome_browser.get('https://www.udemy.com/')
 
 start_page = 1  # to scrape coupons
-number_of_pages = 2  # scrape until this page number
-quantity_yofree = 10  # how much coupons scrape from yofreesamples.com max ~130
+number_of_pages = 5  # scrape until this page number
+quantity_yofree = 50  # how much coupons scrape from yofreesamples.com max ~130
 checkLink = True  # True to check and not enroll if course already owned
 myCoursesFile = "MyCourses_1.txt"  # not working, need manually change foo
 # =============================================================================
@@ -69,7 +69,7 @@ def redeemUdemyCourse(url):
     WebDriverWait(chrome_browser, 10).until(element_price_present)
 
     priceHtml = chrome_browser.find_element_by_xpath(
-        "//div[@data-purpose='price-text-container']").text
+        "//div[@data-purpose='purchase-section']").text
     if "100% off" in priceHtml:
         print("Course is truly free and we are getting it!")
         # Enroll Now 1
@@ -251,7 +251,6 @@ def main():
     uniqueCoupons = list(dict.fromkeys(x))  # ordered unique list
     print(f'all links: {len(x)}')
     print(f'unique links: {len(uniqueCoupons)}')
-    unable = 0
     for link in uniqueCoupons:
         try:
             if checkLink == True:
@@ -264,18 +263,15 @@ def main():
             break
         except BaseException as e:
             print("Unable to enroll for this course either because you have already claimed it or the browser window has been closed!")
-            unable += 1
-    sccss = len(uniqueCoupons)-unable
-    return len(x), len(uniqueCoupons), sccss
+    return len(x), len(uniqueCoupons)
 
 
 trueNewValidCourses = 0
-a, b, sccss = main()
+a, b = main()
 print('===============================================================')
 print(
-    f' Done! Scraped {a} links, and tried to enroll {b} unique links.')
-print(
-    f'____ Successfully enrolled {sccss} new courses! (or a few less) ____')
+    f' Done! Scraped {a} links, and {b} unique links.')
+print(f'{trueNewValidCourses} truly new and valid courses were enrolled')
 print('===============================================================')
-print(f'{trueNewValidCourses} new truly valid courses were enrolled')
+
 chrome_browser.close()
