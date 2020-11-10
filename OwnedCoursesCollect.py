@@ -1,9 +1,13 @@
 # collect to the file all Udemy courses links which I own.
-import requests
 from bs4 import BeautifulSoup
 from selenium import webdriver
 import time
 from selenium.webdriver.chrome.options import Options
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+from selenium.common.exceptions import NoSuchElementException
 
 
 chrome_options = Options()
@@ -20,7 +24,10 @@ chrome_browser.maximize_window()
 def getpage(pageNumber):
     chrome_browser.get(
         f'https://www.udemy.com/home/my-courses/learning/?p={pageNumber}')
-    time.sleep(3)
+    # time.sleep(2)
+    element_card_present = EC.presence_of_element_located(
+        (By.XPATH, "//div[@data-purpose='enrolled-course-card']"))
+    WebDriverWait(chrome_browser, 10).until(element_card_present)
     sp = chrome_browser.page_source
     soup = BeautifulSoup(sp, 'html.parser')
     return soup
