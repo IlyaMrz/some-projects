@@ -41,6 +41,7 @@ chrome_browser.get('https://www.udemy.com/')
 start_page = 1  # to scrape coupons
 number_of_pages = 5  # scrape until this page number
 quantity_yofree = 50  # how much coupons scrape from yofreesamples.com max ~130
+# use OwnedCoursesCollect.py to collect owned courses to txt
 checkLink = True  # True to check and not enroll if course already owned
 myCoursesFile = "MyCourses_1.txt"  # not working, need manually change foo
 # =============================================================================
