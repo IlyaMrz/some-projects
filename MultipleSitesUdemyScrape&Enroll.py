@@ -72,7 +72,7 @@ def redeemUdemyCourse(url):
     priceHtml = chrome_browser.find_element_by_xpath(
         "//div[@data-purpose='purchase-section']").text
     if "100% off" in priceHtml:
-        print("Course is truly free and we are getting it!")
+        print("Course is truly free and new. So we are getting it!")
         # Enroll Now 1
         element_present = EC.presence_of_element_located(
             (By.XPATH, "//button[@data-purpose='buy-this-course-button']"))
