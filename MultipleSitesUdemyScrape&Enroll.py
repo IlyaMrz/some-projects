@@ -39,8 +39,8 @@ chrome_browser.maximize_window()
 chrome_browser.get('https://www.udemy.com/')
 
 start_page = 1  # to scrape coupons
-number_of_pages = 2  # scrape until this page number
-quantity_yofree = 20  # how much coupons scrape from yofreesamples.com max ~130
+number_of_pages = 5  # scrape until this page number
+quantity_yofree = 50  # how much coupons scrape from yofreesamples.com max ~130
 # use OwnedCoursesCollect.py to collect owned courses to txt
 checkLink = True  # True to check and not enroll if course already owned
 myCoursesFile = "MyCourses_1.txt"  # file with all your courses which u own
@@ -64,11 +64,11 @@ def redeemUdemyCourse(url):
     print("almost get url")
     chrome_browser.get(url)
     print("Trying to Enroll for: " + chrome_browser.title)
-
+    element_price_present = None
     element_price_present = EC.presence_of_element_located(
         (By.XPATH, "//div[@data-purpose='price-text-container']"))
     WebDriverWait(chrome_browser, 10).until(element_price_present)
-
+    time.sleep(1)
     priceHtml = chrome_browser.find_element_by_xpath(
         "//div[@data-purpose='purchase-section']").text
     if "100% off" in priceHtml:
@@ -94,19 +94,20 @@ def redeemUdemyCourse(url):
         WebDriverWait(chrome_browser, 10).until(element_present)
 
         # Assume sometimes zip is not required because script was originally pushed without this
-        try:
-            zipcode_element = chrome_browser.find_element_by_id(
-                "billingAddressSecondaryInput")
-            zipcode_element.send_keys(zipcode)
+        # try:
+        #     zipcode_element = chrome_browser.find_element_by_id(
+        #         "billingAddressSecondaryInput")
+        #     zipcode_element.send_keys(zipcode)
 
-            # After you put the zip code in, the page refreshes itself and disables the enroll button for a split second.
-            time.sleep(1)
-        except NoSuchElementException:
-            pass
+        #     # After you put the zip code in, the page refreshes itself and disables the enroll button for a split second.
+        #     time.sleep(1)
+        # except NoSuchElementException:
+        #     pass
 
         udemyEnroll = chrome_browser.find_element_by_xpath(
             "//*[@id=\"udemy\"]/div[1]/div[2]/div/div/div/div[2]/form/div[2]/div/div[4]/button")  # Udemy
         udemyEnroll.click()
+        time.sleep(1)
 
 
 def getDiskUdemyLinks(page):

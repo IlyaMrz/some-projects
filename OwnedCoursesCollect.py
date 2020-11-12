@@ -25,6 +25,7 @@ def getpage(pageNumber):
     chrome_browser.get(
         f'https://www.udemy.com/home/my-courses/learning/?p={pageNumber}')
     # time.sleep(2)
+    element_card_present = None
     element_card_present = EC.presence_of_element_located(
         (By.XPATH, "//div[@data-purpose='enrolled-course-card']"))
     WebDriverWait(chrome_browser, 10).until(element_card_present)
