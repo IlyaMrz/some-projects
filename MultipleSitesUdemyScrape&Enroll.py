@@ -64,7 +64,7 @@ def redeemUdemyCourse(url):
     print("almost get url")
     chrome_browser.get(url)
     print("Trying to Enroll for: " + chrome_browser.title)
-    element_price_present = None
+    element_price_present = None  # and sleep to prevent scrape old page source
     time.sleep(1)
     element_price_present = EC.presence_of_element_located(
         (By.XPATH, "//div[@data-purpose='price-text-container']"))
