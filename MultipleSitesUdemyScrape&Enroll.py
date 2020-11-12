@@ -65,10 +65,11 @@ def redeemUdemyCourse(url):
     chrome_browser.get(url)
     print("Trying to Enroll for: " + chrome_browser.title)
     element_price_present = None
+    time.sleep(1)
     element_price_present = EC.presence_of_element_located(
         (By.XPATH, "//div[@data-purpose='price-text-container']"))
     WebDriverWait(chrome_browser, 10).until(element_price_present)
-    time.sleep(1)
+
     priceHtml = chrome_browser.find_element_by_xpath(
         "//div[@data-purpose='purchase-section']").text
     if "100% off" in priceHtml:
