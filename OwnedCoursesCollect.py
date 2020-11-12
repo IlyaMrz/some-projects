@@ -24,7 +24,7 @@ chrome_browser.maximize_window()
 def getpage(pageNumber):
     chrome_browser.get(
         f'https://www.udemy.com/home/my-courses/learning/?p={pageNumber}')
-    # time.sleep(2)
+    time.sleep(1)
     element_card_present = None
     element_card_present = EC.presence_of_element_located(
         (By.XPATH, "//div[@data-purpose='enrolled-course-card']"))
