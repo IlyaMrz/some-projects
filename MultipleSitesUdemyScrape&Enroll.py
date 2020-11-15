@@ -61,11 +61,11 @@ def udemy_login(email_text, password_text):
 
 
 def redeemUdemyCourse(url):
-    print("almost get url")
+    print("foo redeemudemyCourse")
     chrome_browser.get(url)
     print("Trying to Enroll for: " + chrome_browser.title)
     element_price_present = None  # and sleep to prevent scrape old page source
-    time.sleep(1)
+    time.sleep(2)
     element_price_present = EC.presence_of_element_located(
         (By.XPATH, "//div[@data-purpose='price-text-container']"))
     WebDriverWait(chrome_browser, 10).until(element_price_present)
@@ -263,6 +263,9 @@ def main():
         except KeyboardInterrupt:
             print('===== user interruption =====')
             break
+        except FileNotFoundError:
+            print(
+                f'There is no file ({myCoursesFile}). Check running directory and file, or disable checkLink')
         except BaseException as e:
             print("Unable to enroll for this course either because you have already claimed it or the browser window has been closed!")
     return len(x), len(uniqueCoupons)
