@@ -106,10 +106,11 @@ def redeemUdemyCourse(url):
         # except NoSuchElementException:
         #     pass
 
+        time.sleep(1)
         udemyEnroll = chrome_browser.find_element_by_xpath(
             "//*[@id=\"udemy\"]/div[1]/div[2]/div/div/div/div[2]/form/div[2]/div/div[4]/button")  # Udemy
         udemyEnroll.click()
-        time.sleep(1)
+        time.sleep(2)
 
 
 def getDiskUdemyLinks(page):
@@ -236,13 +237,14 @@ def checkIfCourseOwned(link):
 
 def addCourseLinkToBD(link):
     try:
-        link = link.split('?')[0]
+        link, coupon = link.split('?')[0], link.split('?')[1]
         with open(myCoursesFile, 'r') as f:
             file = f.read().splitlines()
         if link not in file:
             with open(myCoursesFile, 'a') as f:
                 f.write(link+'\n')
                 print(f'New link added to DataBase. Link -> {link}')
+                print(f'Coupon -> ?{coupon}')
     except:
         print("failed to add link to DB")
         pass
