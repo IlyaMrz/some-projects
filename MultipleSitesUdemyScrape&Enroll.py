@@ -197,10 +197,13 @@ def getTutorLinks(page):
     linkCounter = 0
 
     for course in courses:
-        udemyLinks.append(getUdemyLink(course))
-        print("Received TUTOR Link " + str(linkCounter+1) +
-              ": "+udemyLinks[linkCounter])
-        linkCounter += 1
+        try:
+            udemyLinks.append(getUdemyLink(course))
+            print("Received TUTOR Link " + str(linkCounter+1) +
+                  ": "+udemyLinks[linkCounter])
+            linkCounter += 1
+        except:
+            print('getUdemyLink TUTOR failed for one course.. passing')
     return udemyLinks
 
 
