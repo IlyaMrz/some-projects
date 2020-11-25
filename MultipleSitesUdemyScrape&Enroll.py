@@ -203,7 +203,8 @@ def getTutorLinks(page):
                   ": "+udemyLinks[linkCounter])
             linkCounter += 1
         except:
-            print('getUdemyLink TUTOR failed for one course.. passing')
+            print(
+                f'____ getUdemyLink TUTOR failed for one course link {course} .. passing')
     return udemyLinks
 
 
@@ -212,7 +213,7 @@ def alllinks():
     list2 = getOnePageLinks()
     alllinks = []
     while page <= number_of_pages:
-
+        print(f'_____ sraping from PAGE #{page}')
         list1 = getDiskUdemyLinks(page)
         list3 = getTutorLinks(page)
         page += 1
