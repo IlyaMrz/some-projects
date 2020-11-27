@@ -268,6 +268,7 @@ def checkCourseCountDB():
         if countUdemy == localDB:
             print(
                 '\nGood. Local DB of courses contains exact number of courses as udemy.com')
+            print(localDB)
         else:
             print(
                 f'\nWARNING: Something wrong with DB. local:{localDB}. site:{countUdemy}')
