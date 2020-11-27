@@ -273,7 +273,7 @@ def checkCourseCountDB():
             print(
                 f'\nWARNING: Something wrong with DB. local:{localDB}. site:{countUdemy}')
     except:
-        print('\nWhile checking amount of courses something goes wrong.. skiping')
+        print('\nWhile checking amount of courses something goes wrong.. skipping')
 
 
 def main():
