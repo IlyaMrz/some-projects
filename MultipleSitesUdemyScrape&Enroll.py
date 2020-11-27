@@ -1,7 +1,7 @@
 # scrapes Udemy coupon links from 3 sites
 # discudemy.com tutorialbar.com yofreesamples.com
 # then it removes duplicates and enrolls them on Udemy. Python 3.6+
-
+import re
 from selenium import webdriver
 import requests
 from bs4 import BeautifulSoup
@@ -36,7 +36,7 @@ driver = "C:\\Games\\VScodeProjects\\udemy_automat\\chromedriver.exe"
 chrome_browser = webdriver.Chrome(
     driver, chrome_options=chrome_options)  # here
 chrome_browser.maximize_window()
-chrome_browser.get('https://www.udemy.com/')
+chrome_browser.get('https://www.udemy.com/home/my-courses/learning/')
 
 start_page = 1  # to scrape coupons
 number_of_pages = 5  # scrape until this page number
@@ -254,8 +254,31 @@ def addCourseLinkToBD(link):
         pass
 
 
+def checkCourseCountDB():
+    print('\nchecking coincidence amount of courses Local DB and Site...')
+    try:
+        chrome_browser.get('https://www.udemy.com/home/my-courses/learning/')
+        element_present = EC.presence_of_element_located(
+            (By.XPATH, "//div[@class='pager-label']"))
+        WebDriverWait(chrome_browser, 10).until(element_present)
+        count = chrome_browser.find_element_by_xpath(
+            "//div[@class='pager-label']").text
+        countUdemy = int(re.search(r"\s\d*\s", count).group())
+        localDB = sum(1 for line in open(myCoursesFile) if line.rstrip())
+        if countUdemy == localDB:
+            print(
+                '\nGood. Local DB of courses contains exact number of courses as udemy.com')
+        else:
+            print(
+                f'\nWARNING: Something wrong with DB. local:{localDB}. site:{countUdemy}')
+    except:
+        print('\nWhile checking amount of courses something goes wrong.. skiping')
+
+
 def main():
     # udemy_login(email, password)  # uncomment to use login with pass and email
+    if checkLink:
+        checkCourseCountDB()
     x = alllinks()
     uniqueCoupons = list(dict.fromkeys(x))  # ordered unique list
     print(f'all links: {len(x)}')
@@ -284,6 +307,8 @@ print('===============================================================')
 print(
     f' Done! Scraped {a} links, and {b} unique links.')
 print(f'{trueNewValidCourses} truly new and valid courses were enrolled')
+if checkLink:
+    checkCourseCountDB()
 print('===============================================================')
 
 chrome_browser.close()
