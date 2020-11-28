@@ -110,7 +110,7 @@ def redeemUdemyCourse(url):
         udemyEnroll = chrome_browser.find_element_by_xpath(
             "//*[@id=\"udemy\"]/div[1]/div[2]/div/div/div/div[2]/form/div[2]/div/div[4]/button")  # Udemy
         udemyEnroll.click()
-        time.sleep(3)
+        WebDriverWait(chrome_browser, 15).until(EC.url_contains('https://www.udemy.com/cart/success/'))
 
 
 def getDiskUdemyLinks(page):
