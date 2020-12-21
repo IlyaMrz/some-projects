@@ -29,7 +29,7 @@ from selenium.webdriver.chrome.options import Options
 # First time u need log in manually
 chrome_options = Options()
 chrome_options.add_argument(
-    "user-data-dir=C:\\Users\\pk111\\AppData\\Local\\Google\\Chrome\\")
+    "user-data-dir=D:\\MyTemp\\webDriver_auto\\temp")
 
 # Change path to webdriver path
 driver = "C:\\Games\\VScodeProjects\\udemy_automat\\chromedriver.exe"
@@ -186,7 +186,10 @@ def getTutorLinks(page):
 
     soup = BeautifulSoup(response.content, 'html.parser')
 
-    links = soup.find('div', class_="rh-post-wrapper").find_all('a')
+    try:
+        links = soup.find('div', class_="rh-post-wrapper").find_all('a')
+    except:
+        pass
     courses = []
 
     x = 0
