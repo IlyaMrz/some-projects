@@ -186,10 +186,7 @@ def getTutorLinks(page):
 
     soup = BeautifulSoup(response.content, 'html.parser')
 
-    try:
-        links = soup.find('div', class_="rh-post-wrapper").find_all('a')
-    except:
-        pass
+    links = soup.find('div', class_="rh-post-wrapper").find_all('a')
     courses = []
 
     x = 0
