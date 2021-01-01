@@ -87,7 +87,8 @@ def redeemUdemyCourse(url):
             addCourseLinkToBD(chrome_browser.current_url)
 
         udemyEnroll.click()
-        global trueNewValidCourses += 1
+        global trueNewValidCourses
+        trueNewValidCourses += 1
 
         # Enroll Now 2
         element_present = EC.presence_of_element_located(
