@@ -1,12 +1,11 @@
 # blog parser to txt. alexmutnyi.com
 import requests
-from pprint import pprint
 from bs4 import BeautifulSoup
 import codecs
 import re
 
 
-fileObj = codecs.open( "D:\\Downloads\\hh\\html.txt", "r", "utf_8_sig" )
+fileObj = codecs.open( "D:\\Downloads\\AlexMutnyi_0-107\\html.txt", "r", "utf_8_sig" )
 text = fileObj.read()
 fileObj.close()
 
@@ -37,7 +36,7 @@ for ilink in listOflinks:
     title = title.replace('\n','')
     filename = str(count) + '. ' + title.strip(" \n")
     writeFile = open(
-        f'D:\\Downloads\\hh\\{filename}.txt', 'w')
+        f'D:\\Downloads\\AlexMutnyi_0-107\\{filename}.txt', 'w')
     for i in text2:
         try:
             writeFile.write(i)
