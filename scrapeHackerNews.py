@@ -48,10 +48,15 @@ def create_custom_hn(links, subtext):
 
 
 final_list = create_custom_hn(links, subtext)
-pprint(final_list)
+for i in final_list:
+    try: pprint(i)
+    except:pass
+# pprint(final_list)
 
 # writing scraped news to file:
 with open("C:\\Games\\VScodeProjects\\fserver\\db.txt", 'w') as f:
     for i in final_list:
         for k, v in i.items():
-            f.write(str(v) + '\n')
+            try:
+                f.write(str(v) + '\n')
+            except: pass
