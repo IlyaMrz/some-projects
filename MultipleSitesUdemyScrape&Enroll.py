@@ -12,6 +12,7 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 import time
 from selenium.webdriver.chrome.options import Options
+from pprint import pprint
 
 # ============================= settings here =================================
 # =============================================================================
@@ -69,7 +70,11 @@ def redeemUdemyCourse(url):
     time.sleep(2)
     element_price_present = EC.presence_of_element_located(
         (By.XPATH, "//div[@data-purpose='price-text-container']"))
-    WebDriverWait(chrome_browser, 10).until(element_price_present)
+    try:
+        WebDriverWait(chrome_browser, 10).until(element_price_present)
+    except:
+        print("passing line 76 in main loop") 
+        pass
 
     priceHtml = chrome_browser.find_element_by_xpath(
         "//div[@data-purpose='purchase-section']").text
@@ -85,6 +90,7 @@ def redeemUdemyCourse(url):
         # check if course FREE 100% and if yes click and add to DB
         if checkLink == True:
             addCourseLinkToBD(chrome_browser.current_url)
+            linkOFCourse = chrome_browser.current_url
 
         udemyEnroll.click()
         global trueNewValidCourses
@@ -112,6 +118,9 @@ def redeemUdemyCourse(url):
         udemyEnroll.click()
         WebDriverWait(chrome_browser, 15).until(EC.url_contains('https://www.udemy.com/cart/success/'))
         time.sleep(2)
+        if checkLink == True:
+            return linkOFCourse
+    return False
 
 
 def getDiskUdemyLinks(page):
@@ -193,6 +202,7 @@ def getTutorLinks(page):
     for i in range(12):
         courses.append(links[x].get('href'))
         x = x+3
+   
 
     udemyLinks = []
     linkCounter = 0
@@ -273,6 +283,7 @@ def checkCourseCountDB():
         else:
             print(
                 f'\nWARNING: Something wrong with DB. local:{localDB}. site:{countUdemy}')
+            return False
     except:
         print('\nWhile checking amount of courses something goes wrong.. skipping')
 
@@ -285,11 +296,15 @@ def main():
     uniqueCoupons = list(dict.fromkeys(x))  # ordered unique list
     print(f'all links: {len(x)}')
     print(f'unique links: {len(uniqueCoupons)}')
+    enrolledCourses = []
+    unableToEnroll = []
     for link in uniqueCoupons:
         try:
             if checkLink == True:
                 if checkIfCourseOwned(link) == False:
-                    redeemUdemyCourse(link)
+                    returnedlink = redeemUdemyCourse(link)
+                    if returnedlink:
+                        enrolledCourses.append(returnedlink)
             else:
                 redeemUdemyCourse(link)
         except KeyboardInterrupt:
@@ -298,19 +313,37 @@ def main():
         except FileNotFoundError:
             print(
                 f'There is no file ({myCoursesFile}). Check running directory and file, or disable checkLink')
-        except BaseException as e:
+        except BaseException:
+            unableToEnroll.append[link]
             print("Unable to enroll for this course either because you have already claimed it or the browser window has been closed!")
-    return len(x), len(uniqueCoupons)
+            print(link)
+    return len(x), len(uniqueCoupons), enrolledCourses, unableToEnroll
 
 
 trueNewValidCourses = 0
-a, b = main()
+a, b, enrolledCourses, unableToEnroll = main()
 print('===============================================================')
 print(
     f' Done! Scraped {a} links, and {b} unique links.')
 print(f'{trueNewValidCourses} truly new and valid courses were enrolled')
 if checkLink:
-    checkCourseCountDB()
+    if checkCourseCountDB() == False:
+        checkLink = False
+        print('we are going to try re-enroll failed to enroll courses ')
+        print("complete list of enrolled courses:")
+        pprint(enrolledCourses)
+        print('list of unable to enroll:')
+        pprint(unableToEnroll)
+        print('-----------------------------------------------------')
+        print(f'lenght of enrolledCourses: {len(enrolledCourses)}')
+        for link in enrolledCourses:
+            print(f'link in erolledCourses to re enroll: {link}')
+            try:
+                redeemUdemyCourse(link)
+            except:
+                print('redeemUdemyCourse(link) exception passing')
+                pass
+        checkCourseCountDB()
 print('===============================================================')
 
 chrome_browser.close()
