@@ -42,9 +42,6 @@ chrome_browser = webdriver.Chrome(
     driver, chrome_options=chrome_options)  # here
 chrome_browser.maximize_window()
 
-#Removing navigator.webdriver Flag using JavaScript
-# chrome_browser.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
-
 chrome_browser.get('https://www.udemy.com/home/my-courses/learning/')
 start_page = 1  # to scrape coupons
 number_of_pages = 5  # scrape until this page number
