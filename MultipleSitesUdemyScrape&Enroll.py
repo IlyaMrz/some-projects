@@ -32,13 +32,20 @@ chrome_options = Options()
 chrome_options.add_argument(
     "user-data-dir=D:\\MyTemp\\webDriver_auto\\temp")
 
+chrome_options.add_argument("window-size=1920,1080")
+chrome_options.add_argument("user-agent=Chrome/88.0.4324.150 (Windows NT 10.0; Win64; x64)")    
+# Removing the Flag (Navigator.Webdriver) before it is even set (only google chrome)
+chrome_options.add_argument('--disable-blink-features=AutomationControlled')
 # Change path to webdriver path
 driver = "C:\\Games\\VScodeProjects\\udemy_automat\\chromedriver.exe"
 chrome_browser = webdriver.Chrome(
     driver, chrome_options=chrome_options)  # here
 chrome_browser.maximize_window()
-chrome_browser.get('https://www.udemy.com/home/my-courses/learning/')
 
+#Removing navigator.webdriver Flag using JavaScript
+# chrome_browser.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
+
+chrome_browser.get('https://www.udemy.com/home/my-courses/learning/')
 start_page = 1  # to scrape coupons
 number_of_pages = 5  # scrape until this page number
 quantity_yofree = 50  # how much coupons scrape from yofreesamples.com max ~130
