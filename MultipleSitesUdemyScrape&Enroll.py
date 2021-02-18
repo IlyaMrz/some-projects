@@ -345,20 +345,19 @@ if checkLink:
             except:
                 print('redeemUdemyCourse(link) exception passing')
                 pass
-        checkCourseCountDB()
-    if checkCourseCountDB() == False:
-        print('we are going to try re-enroll enrolledCourses to enroll courses_')
-        print("complete list of enrolledCourses courses:")
-        pprint(enrolledCourses)
-        print(f'lenght of enrolledCourses: {len(enrolledCourses)}')
-        for link in enrolledCourses:
-            print(f'link in unableToEnroll to re enroll: {link}')
-            try:
-                redeemUdemyCourse(link)
-            except:
-                print('redeemUdemyCourse(link) exception passing')
-                pass
-        checkCourseCountDB()
+        if checkCourseCountDB() == False:
+            print('we are going to try re-enroll enrolledCourses to enroll courses')
+            print("complete list of enrolledCourses courses:")
+            pprint(enrolledCourses)
+            print(f'lenght of enrolledCourses: {len(enrolledCourses)}')
+            for link in enrolledCourses:
+                print(f'link in unableToEnroll to re enroll: {link}')
+                try:
+                    redeemUdemyCourse(link)
+                except:
+                    print('redeemUdemyCourse(link) exception passing')
+                    pass
+            checkCourseCountDB()
     print('finish')
 print('===============================================================')
 
