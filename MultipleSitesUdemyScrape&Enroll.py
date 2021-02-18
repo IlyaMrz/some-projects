@@ -347,7 +347,7 @@ if checkLink:
                 pass
         checkCourseCountDB()
     if checkCourseCountDB() == False:
-        print('we are going to try re-enroll enrolledCourses to enroll courses ')
+        print('we are going to try re-enroll enrolledCourses to enroll courses_')
         print("complete list of enrolledCourses courses:")
         pprint(enrolledCourses)
         print(f'lenght of enrolledCourses: {len(enrolledCourses)}')
