@@ -318,7 +318,7 @@ def main():
             print(
                 f'There is no file ({myCoursesFile}). Check running directory and file, or disable checkLink')
         except BaseException:
-            unableToEnroll.append[link]
+            unableToEnroll.append(link)
             print("Unable to enroll for this course either because you have already claimed it or the browser window has been closed!")
             print(link)
     return len(x), len(uniqueCoupons), enrolledCourses, unableToEnroll
@@ -334,20 +334,32 @@ if checkLink:
     if checkCourseCountDB() == False:
         checkLink = False
         print('we are going to try re-enroll failed to enroll courses ')
-        print("complete list of enrolled courses:")
-        pprint(enrolledCourses)
         print('list of unable to enroll:')
         pprint(unableToEnroll)
         print('-----------------------------------------------------')
-        print(f'lenght of enrolledCourses: {len(enrolledCourses)}')
-        for link in enrolledCourses:
-            print(f'link in erolledCourses to re enroll: {link}')
+        print(f'lenght of unableToEnroll: {len(unableToEnroll)}')
+        for link in unableToEnroll:
+            print(f'link in unableToEnroll to re enroll: {link}')
             try:
                 redeemUdemyCourse(link)
             except:
                 print('redeemUdemyCourse(link) exception passing')
                 pass
         checkCourseCountDB()
+    if checkCourseCountDB() == False:
+        print('we are going to try re-enroll enrolledCourses to enroll courses ')
+        print("complete list of enrolledCourses courses:")
+        pprint(enrolledCourses)
+        print(f'lenght of enrolledCourses: {len(enrolledCourses)}')
+        for link in enrolledCourses:
+            print(f'link in unableToEnroll to re enroll: {link}')
+            try:
+                redeemUdemyCourse(link)
+            except:
+                print('redeemUdemyCourse(link) exception passing')
+                pass
+        checkCourseCountDB()
+    print('finish')
 print('===============================================================')
 
 chrome_browser.close()
