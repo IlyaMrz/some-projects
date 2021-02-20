@@ -70,6 +70,8 @@ def redeemUdemyCourse(url):
     print("foo redeemudemyCourse")
     chrome_browser.get(url)
     print("Trying to Enroll for: " + chrome_browser.title)
+    print(url)
+    print('----------')
     element_price_present = None  # and sleep to prevent scrape old page source
     time.sleep(2)
     element_price_present = EC.presence_of_element_located(
@@ -92,9 +94,7 @@ def redeemUdemyCourse(url):
         udemyEnroll = chrome_browser.find_element_by_xpath(
             "//button[@data-purpose='buy-this-course-button']")  # Udemy
         # check if course FREE 100% and if yes click and add to DB
-        if checkLink == True:
-            addCourseLinkToBD(chrome_browser.current_url)
-            linkOFCourse = chrome_browser.current_url
+        linkOFCourse = chrome_browser.current_url
 
         udemyEnroll.click()
         global trueNewValidCourses
@@ -121,6 +121,10 @@ def redeemUdemyCourse(url):
             "//*[@id=\"udemy\"]/div[1]/div[2]/div/div/div/div[2]/form/div[2]/div/div[4]/button")  # Udemy
         udemyEnroll.click()
         WebDriverWait(chrome_browser, 15).until(EC.url_contains('https://www.udemy.com/cart/success/'))
+
+        if (checkLink == True) and ("success" in chrome_browser.current_url):
+            addCourseLinkToBD(linkOFCourse)
+
         time.sleep(2)
         if checkLink == True:
             return linkOFCourse
@@ -345,13 +349,14 @@ if checkLink:
             except:
                 print('redeemUdemyCourse(link) exception passing')
                 pass
+        print('--------------------SECOND PHASE OF RE-ENROLL--------------------')
         if checkCourseCountDB() == False:
             print('we are going to try re-enroll enrolledCourses to enroll courses')
             print("complete list of enrolledCourses courses:")
             pprint(enrolledCourses)
             print(f'lenght of enrolledCourses: {len(enrolledCourses)}')
             for link in enrolledCourses:
-                print(f'link in unableToEnroll to re enroll: {link}')
+                print(f'link in enrolledCourses to re enroll: {link}')
                 try:
                     redeemUdemyCourse(link)
                 except:
