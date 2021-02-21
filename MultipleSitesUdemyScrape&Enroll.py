@@ -67,11 +67,11 @@ def udemy_login(email_text, password_text):
 
 
 def redeemUdemyCourse(url):
+    print('--------------------------------------------------')
     print("foo redeemudemyCourse")
     chrome_browser.get(url)
     print("Trying to Enroll for: " + chrome_browser.title)
     print(url)
-    print('----------')
     element_price_present = None  # and sleep to prevent scrape old page source
     time.sleep(2)
     element_price_present = EC.presence_of_element_located(
