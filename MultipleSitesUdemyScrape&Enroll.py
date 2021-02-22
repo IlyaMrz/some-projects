@@ -39,7 +39,7 @@ chrome_options.add_argument('--disable-blink-features=AutomationControlled')
 # Change path to webdriver path
 driver = "C:\\Games\\VScodeProjects\\udemy_automat\\chromedriver.exe"
 chrome_browser = webdriver.Chrome(
-    driver, chrome_options=chrome_options)  # here
+    driver, options=chrome_options)  # here
 chrome_browser.maximize_window()
 
 chrome_browser.get('https://www.udemy.com/home/my-courses/learning/')
@@ -126,9 +126,7 @@ def redeemUdemyCourse(url):
             addCourseLinkToBD(linkOFCourse)
 
         time.sleep(2)
-        if checkLink == True:
-            return linkOFCourse
-    return False
+
 
 
 def getDiskUdemyLinks(page):
@@ -304,15 +302,11 @@ def main():
     uniqueCoupons = list(dict.fromkeys(x))  # ordered unique list
     print(f'all links: {len(x)}')
     print(f'unique links: {len(uniqueCoupons)}')
-    enrolledCourses = []
-    unableToEnroll = []
     for link in uniqueCoupons:
         try:
-            if checkLink == True:
-                if checkIfCourseOwned(link) == False:
-                    returnedlink = redeemUdemyCourse(link)
-                    if returnedlink:
-                        enrolledCourses.append(returnedlink)
+            if (checkLink == True):
+                if (checkIfCourseOwned(link) == False):
+                    redeemUdemyCourse(link)
             else:
                 redeemUdemyCourse(link)
         except KeyboardInterrupt:
@@ -322,48 +316,19 @@ def main():
             print(
                 f'There is no file ({myCoursesFile}). Check running directory and file, or disable checkLink')
         except BaseException:
-            unableToEnroll.append(link)
             print("Unable to enroll for this course either because you have already claimed it or the browser window has been closed!")
             print(link)
-    return len(x), len(uniqueCoupons), enrolledCourses, unableToEnroll
+    return len(x), len(uniqueCoupons)
 
 
 trueNewValidCourses = 0
-a, b, enrolledCourses, unableToEnroll = main()
+a, b = main()
 print('===============================================================')
 print(
     f' Done! Scraped {a} links, and {b} unique links.')
 print(f'{trueNewValidCourses} truly new and valid courses were enrolled')
 if checkLink:
-    if checkCourseCountDB() == False:
-        checkLink = False
-        print('we are going to try re-enroll failed to enroll courses ')
-        print('list of unable to enroll:')
-        pprint(unableToEnroll)
-        print('-----------------------------------------------------')
-        print(f'lenght of unableToEnroll: {len(unableToEnroll)}')
-        for link in unableToEnroll:
-            print(f'link in unableToEnroll to re enroll: {link}')
-            try:
-                redeemUdemyCourse(link)
-            except:
-                print('redeemUdemyCourse(link) exception passing')
-                pass
-        print('--------------------SECOND PHASE OF RE-ENROLL--------------------')
-        if checkCourseCountDB() == False:
-            print('we are going to try re-enroll enrolledCourses to enroll courses')
-            print("complete list of enrolledCourses courses:")
-            pprint(enrolledCourses)
-            print(f'lenght of enrolledCourses: {len(enrolledCourses)}')
-            for link in enrolledCourses:
-                print(f'link in enrolledCourses to re enroll: {link}')
-                try:
-                    redeemUdemyCourse(link)
-                except:
-                    print('redeemUdemyCourse(link) exception passing')
-                    pass
-            checkCourseCountDB()
-    print('finish')
+    checkCourseCountDB()
 print('===============================================================')
 
 chrome_browser.close()
