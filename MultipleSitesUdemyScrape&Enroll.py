@@ -50,6 +50,8 @@ quantity_yofree = 50  # how much coupons scrape from yofreesamples.com max ~130
 checkLink = True  # True to check and not enroll if course already owned
 # file with all your courses which u own
 myCoursesFile = "C:\\Games\\VScodeProjects\\some-projects\\MyCourses_1.txt"
+with open(myCoursesFile, 'r') as f:
+    readFileWithCourses = f.read().splitlines()
 # =============================================================================
 
 
@@ -241,12 +243,10 @@ def alllinks():
 
 
 def checkIfCourseOwned(link):
-    with open(myCoursesFile, 'r') as f:
-        file = f.read().splitlines()
     try:
         print('check')
         tlink = link.split('?')[0]
-        if tlink in file:
+        if tlink in readFileWithCourses:
             state = True
             print("course already owned")
         else:
@@ -261,11 +261,12 @@ def addCourseLinkToBD(link):
         link, coupon = link.split('?')[0], link.split('?')[1]
         with open(myCoursesFile, 'r') as f:
             file = f.read().splitlines()
-        if link not in file:
-            with open(myCoursesFile, 'a') as f:
+            if link not in file:
                 f.write(link+'\n')
                 print(f'New link added to DataBase. Link -> {link}')
                 print(f'Coupon -> ?{coupon}')
+            else: 
+                print('seems like this course already in DB so we passing "addin to DB"')
     except:
         print("failed to add link to DB")
         pass
