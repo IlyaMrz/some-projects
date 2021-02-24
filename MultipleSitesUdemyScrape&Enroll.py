@@ -261,12 +261,13 @@ def addCourseLinkToBD(link):
         link, coupon = link.split('?')[0], link.split('?')[1]
         with open(myCoursesFile, 'r') as f:
             file = f.read().splitlines()
-            if link not in file:
+        if link not in file:
+            with open(myCoursesFile, 'a') as f:
                 f.write(link+'\n')
                 print(f'New link added to DataBase. Link -> {link}')
                 print(f'Coupon -> ?{coupon}')
-            else: 
-                print('seems like this course already in DB so we passing "addin to DB"')
+        else: 
+            print('seems like this course already in DB so we passing "addin to DB"')
     except:
         print("failed to add link to DB")
         pass
