@@ -295,7 +295,7 @@ def checkCourseCountDB():
             return False
     except:
         print('\nWhile checking amount of courses something goes wrong..')
-        exit("Cannot amount of courses on udemy. Maybe you logged off. Mission aborted!")
+        exit("Cannot check amount of courses on udemy. Maybe you logged off. Mission aborted!")
 
 
 
