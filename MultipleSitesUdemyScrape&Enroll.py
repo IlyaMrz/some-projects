@@ -13,6 +13,7 @@ from selenium.common.exceptions import NoSuchElementException
 import time
 from selenium.webdriver.chrome.options import Options
 from pprint import pprint
+from sys import exit
 
 # ============================= settings here =================================
 # =============================================================================
@@ -293,7 +294,9 @@ def checkCourseCountDB():
                 f'\nWARNING: Something wrong with DB. local:{localDB}. site:{countUdemy}')
             return False
     except:
-        print('\nWhile checking amount of courses something goes wrong.. skipping')
+        print('\nWhile checking amount of courses something goes wrong..')
+        exit("Cannot amount of courses on udemy. Maybe you logged off. Mission aborted!")
+
 
 
 def main():
