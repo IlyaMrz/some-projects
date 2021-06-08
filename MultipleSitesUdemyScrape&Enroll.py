@@ -34,7 +34,8 @@ chrome_options.add_argument(
     "user-data-dir=D:\\MyTemp\\webDriver_auto\\temp")
 
 chrome_options.add_argument("window-size=1920,1080")
-chrome_options.add_argument("user-agent=Chrome/88.0.4324.150 (Windows NT 10.0; Win64; x64)")    
+chrome_options.add_argument(
+    "user-agent=Chrome/88.0.4324.150 (Windows NT 10.0; Win64; x64)")
 # Removing the Flag (Navigator.Webdriver) before it is even set (only google chrome)
 chrome_options.add_argument('--disable-blink-features=AutomationControlled')
 # Change path to webdriver path
@@ -82,7 +83,7 @@ def redeemUdemyCourse(url):
     try:
         WebDriverWait(chrome_browser, 10).until(element_price_present)
     except:
-        print("passing line 76 in main loop") 
+        print("passing line 76 in main loop")
         pass
 
     priceHtml = chrome_browser.find_element_by_xpath(
@@ -105,7 +106,7 @@ def redeemUdemyCourse(url):
 
         # Enroll Now 2
         element_present = EC.presence_of_element_located(
-            (By.XPATH, "//*[@id=\"udemy\"]/div[1]/div[2]/div/div/div/div[2]/form/div[2]/div/div[4]/button"))
+            (By.XPATH, "/html/body/div[1]/div[3]/div/div/div/div[2]/form/div[2]/div/div[4]/button"))
         WebDriverWait(chrome_browser, 10).until(element_present)
 
         # Assume sometimes zip is not required because script was originally pushed without this
@@ -119,17 +120,20 @@ def redeemUdemyCourse(url):
         # except NoSuchElementException:
         #     pass
 
-        time.sleep(1)
-        udemyEnroll = chrome_browser.find_element_by_xpath(
-            "//*[@id=\"udemy\"]/div[1]/div[2]/div/div/div/div[2]/form/div[2]/div/div[4]/button")  # Udemy
-        udemyEnroll.click()
-        WebDriverWait(chrome_browser, 15).until(EC.url_contains('https://www.udemy.com/cart/success/'))
-
-        if (checkLink == True) and ("success" in chrome_browser.current_url):
-            addCourseLinkToBD(linkOFCourse)
-
         time.sleep(2)
+        udemyEnroll = chrome_browser.find_element_by_xpath(
+            "/html/body/div[1]/div[3]/div/div/div/div[2]/form/div[2]/div/div[4]/button")  # Udemy
+        udemyEnroll.click()
+        WebDriverWait(chrome_browser, 15).until(
+            EC.url_contains('https://www.udemy.com/occupation/explorer/?next=%2Fcart%2Fsuccess%'))
 
+        if (checkLink == True) and (("success" or 'https://www.udemy.com/occupation/explorer/?next=%2Fcart%2Fsuccess%' in chrome_browser.current_url)):
+            addCourseLinkToBD(linkOFCourse)
+        else:
+            print('course didn\'t added to DB')
+            print(linkOFCourse)
+            print('_____!!!!!_____')
+        time.sleep(2)
 
 
 def getDiskUdemyLinks(page):
@@ -211,7 +215,6 @@ def getTutorLinks(page):
     for i in range(12):
         courses.append(links[x].get('href'))
         x = x+3
-   
 
     udemyLinks = []
     linkCounter = 0
@@ -267,7 +270,7 @@ def addCourseLinkToBD(link):
                 f.write(link+'\n')
                 print(f'New link added to DataBase. Link -> {link}')
                 print(f'Coupon -> ?{coupon}')
-        else: 
+        else:
             print('seems like this course already in DB so we passing "addin to DB"')
     except:
         print("failed to add link to DB")
@@ -296,7 +299,6 @@ def checkCourseCountDB():
     except:
         print('\nWhile checking amount of courses something goes wrong..')
         exit("Cannot check amount of courses on udemy. Maybe you logged off. Mission aborted!")
-
 
 
 def main():
