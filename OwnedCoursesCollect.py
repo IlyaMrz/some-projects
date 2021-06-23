@@ -12,12 +12,17 @@ from selenium.common.exceptions import NoSuchElementException
 
 chrome_options = Options()
 chrome_options.add_argument(
-    "user-data-dir=C:\\Users\\pk111\\AppData\\Local\\Google\\Chrome\\")
+    "user-data-dir=D:\\MyTemp\\webDriver_auto\\temp")
 
-
+chrome_options.add_argument("window-size=1920,1080")
+chrome_options.add_argument(
+    "user-agent=Chrome/88.0.4324.150 (Windows NT 10.0; Win64; x64)")
+# Removing the Flag (Navigator.Webdriver) before it is even set (only google chrome)
+chrome_options.add_argument('--disable-blink-features=AutomationControlled')
+# Change path to webdriver path
 driver = "C:\\Games\\VScodeProjects\\udemy_automat\\chromedriver.exe"
 chrome_browser = webdriver.Chrome(
-    driver, chrome_options=chrome_options)  # here
+    driver, options=chrome_options)  # here
 chrome_browser.maximize_window()
 
 

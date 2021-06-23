@@ -125,9 +125,9 @@ def redeemUdemyCourse(url):
             "/html/body/div[1]/div[3]/div/div/div/div[2]/form/div[2]/div/div[4]/button")  # Udemy
         udemyEnroll.click()
         WebDriverWait(chrome_browser, 15).until(
-            EC.url_contains('https://www.udemy.com/occupation/explorer/?next=%2Fcart%2Fsuccess%'))
+            EC.url_contains('success'))
 
-        if (checkLink == True) and (("success" or 'https://www.udemy.com/occupation/explorer/?next=%2Fcart%2Fsuccess%' in chrome_browser.current_url)):
+        if (checkLink == True) and (("success" in chrome_browser.current_url)):
             addCourseLinkToBD(linkOFCourse)
         else:
             print('course didn\'t added to DB')
