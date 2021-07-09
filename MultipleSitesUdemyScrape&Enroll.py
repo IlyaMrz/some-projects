@@ -99,14 +99,14 @@ def redeemUdemyCourse(url):
             "//button[@data-purpose='buy-this-course-button']")  # Udemy
         # check if course FREE 100% and if yes click and add to DB
         linkOFCourse = chrome_browser.current_url
-
         udemyEnroll.click()
+
         global trueNewValidCourses
         trueNewValidCourses += 1
 
         # Enroll Now 2
         element_present = EC.presence_of_element_located(
-            (By.XPATH, "/html/body/div[1]/div[3]/div/div/div/div[2]/form/div[2]/div/div[4]/button"))
+            (By.XPATH, "/html[1]/body[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[2]/form[1]/div[2]/div[1]/div[4]/button[1]"))
         WebDriverWait(chrome_browser, 10).until(element_present)
 
         # Assume sometimes zip is not required because script was originally pushed without this
@@ -122,7 +122,7 @@ def redeemUdemyCourse(url):
 
         time.sleep(2)
         udemyEnroll = chrome_browser.find_element_by_xpath(
-            "/html/body/div[1]/div[3]/div/div/div/div[2]/form/div[2]/div/div[4]/button")  # Udemy
+            "/html[1]/body[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[2]/form[1]/div[2]/div[1]/div[4]/button[1]")  # Udemy
         udemyEnroll.click()
         WebDriverWait(chrome_browser, 15).until(
             EC.url_contains('success'))
