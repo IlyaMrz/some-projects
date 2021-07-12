@@ -15,6 +15,9 @@ from selenium.webdriver.chrome.options import Options
 from pprint import pprint
 from sys import exit
 
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'}
+
 # ============================= settings here =================================
 # =============================================================================
 # if want login with pass and email
@@ -138,7 +141,8 @@ def redeemUdemyCourse(url):
 
 def getDiskUdemyLinks(page):
     print('PLEASE WAIT WE ARE GETTING UDEMY LINKS ><><><><><><><><')
-    res = requests.get(f'https://www.discudemy.com/all/{str(page)}').text
+    res = requests.get(
+        f'https://www.discudemy.com/all/{str(page)}', headers=headers).text
     soup = BeautifulSoup(res, 'html.parser')
     elems = soup.findAll('section', {"class": 'card'})
     truelinks = []
@@ -160,7 +164,7 @@ def getDiskUdemyLinks(page):
 def getOnePageLinks():
     links2 = []
     res = requests.get(
-        'https://yofreesamples.com/courses/free-discounted-udemy-courses-list/').text
+        'https://yofreesamples.com/courses/free-discounted-udemy-courses-list/', headers=headers).text
     soup = BeautifulSoup(res, 'html.parser')
     for i in soup.findAll('a', {'class': 'btn btn-md btn-success'}):
         link = i['href']
@@ -170,7 +174,7 @@ def getOnePageLinks():
 
 
 def trueUdemylink(link, truelinks):
-    res3 = requests.get(link).text
+    res3 = requests.get(link, headers=headers).text
     soup3 = BeautifulSoup(res3, 'html.parser')
     for item in soup3.find('div', {'class': 'ui segment'}):
         try:
@@ -182,7 +186,7 @@ def trueUdemylink(link, truelinks):
 
 
 def findUdemylink(link, truelinks):
-    res2 = requests.get(link).text
+    res2 = requests.get(link, headers=headers).text
     soup2 = BeautifulSoup(res2, 'html.parser')
     link2 = soup2.find('a', {'class': 'ui big inverted green button discBtn'})
     link2 = link2['href']
@@ -191,7 +195,7 @@ def findUdemylink(link, truelinks):
 
 def getUdemyLink(url):
     response = requests.get(
-        url=url
+        url=url, headers=headers
     )
 
     soup = BeautifulSoup(response.content, 'html.parser')
@@ -204,7 +208,7 @@ def getUdemyLink(url):
 
 def getTutorLinks(page):
     url = "https://www.tutorialbar.com/all-courses/"+"page/"+str(page)+"/"
-    response = requests.get(url=url)
+    response = requests.get(url=url, headers=headers)
 
     soup = BeautifulSoup(response.content, 'html.parser')
 
