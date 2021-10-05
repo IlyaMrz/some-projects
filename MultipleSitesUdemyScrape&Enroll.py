@@ -111,7 +111,6 @@ def redeemUdemyCourse(url):
         element_present = EC.presence_of_element_located(
             (By.XPATH, "/html[1]/body[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[2]/form[1]/div[2]/div[1]/div[4]/button[1]"))
         WebDriverWait(chrome_browser, 10).until(element_present)
-
         # Assume sometimes zip is not required because script was originally pushed without this
         # try:
         #     zipcode_element = chrome_browser.find_element_by_id(
@@ -123,7 +122,7 @@ def redeemUdemyCourse(url):
         # except NoSuchElementException:
         #     pass
 
-        time.sleep(2)
+        time.sleep(4)
         udemyEnroll = chrome_browser.find_element_by_xpath(
             "/html[1]/body[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[2]/form[1]/div[2]/div[1]/div[4]/button[1]")  # Udemy
         udemyEnroll.click()
@@ -140,7 +139,7 @@ def redeemUdemyCourse(url):
 
 
 def getDiskUdemyLinks(page):
-    print('PLEASE WAIT WE ARE GETTING UDEMY LINKS ><><><><><><><><')
+    print('PLEASE WAIT WE ARE GETTING Disk UDEMY LINKS ><><><><><><><><')
     res = requests.get(
         f'https://www.discudemy.com/all/{str(page)}', headers=headers).text
     soup = BeautifulSoup(res, 'html.parser')
