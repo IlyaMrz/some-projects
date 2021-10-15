@@ -33,21 +33,21 @@ win32clipboard.CloseClipboard()
 idx = 0
 if len(URL.split(',')) == 2:
     URL, frmt = URL.split(',')
-    idx = video_formats.index(str(frmt))
+    format_index = video_formats.index(str(frmt))
 
 audio_url = ydl_a.extract_info(URL, download=False)['url']
 
 
-def getVideoUrl(idx):
+def getVideoUrl(format_index):
     try:
-        ydl_v = setPropsToYT_dl(video_formats[idx])
+        ydl_v = setPropsToYT_dl(video_formats[format_index])
         video_url = ydl_v.extract_info(URL, download=False)['url']
         return video_url
     except:
-        idx = idx+1
-        return getVideoUrl(idx)
+        format_index = format_index+1
+        return getVideoUrl(format_index)
 
 
-video_url = getVideoUrl(idx)
+video_url = getVideoUrl(format_index)
 command = f'{VLC_PATH} {video_url} --input-slave={audio_url}'
 subprocess.call(command)
