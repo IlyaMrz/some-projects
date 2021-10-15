@@ -39,6 +39,8 @@ audio_url = ydl_a.extract_info(URL, download=False)['url']
 
 
 def getVideoUrl(format_index):
+    if format_index == 7:
+        exit()
     try:
         ydl_v = setPropsToYT_dl(video_formats[format_index])
         video_url = ydl_v.extract_info(URL, download=False)['url']
