@@ -28,6 +28,10 @@ win32clipboard.OpenClipboard()
 URL = win32clipboard.GetClipboardData()
 win32clipboard.CloseClipboard()
 
+if not "youtube.com/watch" in URL:
+    print('Youtube_to_VLC'.center(70, '_'))
+    URL = input('Enter youtube url :  ')
+
 format_index = 0
 if len(URL.split(',')) == 2:
     URL, frmt = URL.split(',')
