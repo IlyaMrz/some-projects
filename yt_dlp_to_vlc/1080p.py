@@ -8,8 +8,6 @@ from pprint import pprint
 # https://gist.github.com/AgentOak/34d47c65b1d28829bb17c24c04a0096f#dash-video
 # or check formats with command:
 # yt-dlp -F YT_URL
-# 299 1080 - 60fps
-# 137 1080 - 30fps
 # if u wanna use certain format use clipboard => URL,ID
 
 VLC_PATH = "C:\\Program Files\\VideoLAN\\VLC\\vlc.exe"
