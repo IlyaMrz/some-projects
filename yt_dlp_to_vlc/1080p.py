@@ -30,7 +30,7 @@ win32clipboard.OpenClipboard()
 URL = win32clipboard.GetClipboardData()
 win32clipboard.CloseClipboard()
 
-idx = 0
+format_index = 0
 if len(URL.split(',')) == 2:
     URL, frmt = URL.split(',')
     format_index = video_formats.index(str(frmt))
