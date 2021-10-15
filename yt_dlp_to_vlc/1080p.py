@@ -32,8 +32,8 @@ win32clipboard.CloseClipboard()
 
 idx = 0
 if len(URL.split(',')) == 2:
-    URL, idxx = URL.split(',')
-    idx = video_formats.index(str(idxx))
+    URL, frmt = URL.split(',')
+    idx = video_formats.index(str(frmt))
 
 audio_url = ydl_a.extract_info(URL, download=False)['url']
 
