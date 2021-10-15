@@ -4,7 +4,7 @@ from yt_dlp import YoutubeDL
 ydl = YoutubeDL({
     'format': '22',
 })
-print('Youtube to VLC'.center(40, '_'))
+print('Youtube_to_VLC'.center(70, '_'))
 URL = input('Enter youtube url :  ')
 r = ydl.extract_info(URL, download=False)
 
