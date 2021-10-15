@@ -15,14 +15,14 @@ from pprint import pprint
 VLC_PATH = "C:\\Program Files\\VideoLAN\\VLC\\vlc.exe"
 
 
-def get_Data_with_format(format_ID):
+def setPropsToYT_dl(format_ID):
     return YoutubeDL({
         'format': format_ID,
         "player_client": "android",
     })
 
 
-ydl_a = get_Data_with_format('251')
+ydl_a = setPropsToYT_dl('251')
 
 video_formats = ['137', '248', '299', '303', '335', '399', '699']  # 1080
 
@@ -40,7 +40,7 @@ audio_url = ydl_a.extract_info(URL, download=False)['url']
 
 def go(idx):
     try:
-        ydl_v = get_Data_with_format(video_formats[idx])
+        ydl_v = setPropsToYT_dl(video_formats[idx])
         video_url = ydl_v.extract_info(URL, download=False)['url']
         return video_url
     except:
