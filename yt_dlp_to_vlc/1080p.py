@@ -38,16 +38,16 @@ if len(URL.split(',')) == 2:
 audio_url = ydl_a.extract_info(URL, download=False)['url']
 
 
-def go(idx):
+def getVideoUrl(idx):
     try:
         ydl_v = setPropsToYT_dl(video_formats[idx])
         video_url = ydl_v.extract_info(URL, download=False)['url']
         return video_url
     except:
         idx = idx+1
-        return go(idx)
+        return getVideoUrl(idx)
 
 
-video_url = go(idx)
+video_url = getVideoUrl(idx)
 command = f'{VLC_PATH} {video_url} --input-slave={audio_url}'
 subprocess.call(command)
