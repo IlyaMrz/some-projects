@@ -1,4 +1,4 @@
-from __future__ import unicode_literals
+# from __future__ import unicode_literals
 import subprocess
 from yt_dlp import YoutubeDL
 ydl = YoutubeDL({
