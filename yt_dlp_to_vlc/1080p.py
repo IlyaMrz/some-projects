@@ -15,7 +15,6 @@ VLC_PATH = "C:\\Program Files\\VideoLAN\\VLC\\vlc.exe"
 def setPropsToYT_dl(format_ID):
     return YoutubeDL({
         'format': format_ID,
-        "player_client": "android",
     })
 
 
