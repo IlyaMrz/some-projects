@@ -21,7 +21,7 @@ def setPropsToYT_dl(format_ID):
 
 ydl_a = setPropsToYT_dl('251')
 
-video_formats = ['137', '248', '299', '303', '335', '399', '699']  # 1080
+video_formats = ['299', '137', '248', '303', '335', '399', '699']  # 1080
 
 win32clipboard.OpenClipboard()
 URL = win32clipboard.GetClipboardData()
