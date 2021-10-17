@@ -49,8 +49,9 @@ def getVideoUrl(format_index):
         format_index = format_index+1
         return getVideoUrl(format_index)
 
-command1 = f'yt-dlp --skip-download --cookies 1.txt --mark-watched {URL}'
-subprocess.call(command1)
+command_mark_watched = f'yt-dlp --skip-download --cookies 1.txt --mark-watched {URL}'
+subprocess.call(command_mark_watched)
+
 video_url = getVideoUrl(format_index)
 command = f'{VLC_PATH} {video_url} --input-slave={audio_url}'
 subprocess.call(command)

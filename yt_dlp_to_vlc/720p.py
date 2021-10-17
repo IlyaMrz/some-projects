@@ -22,8 +22,9 @@ if not "youtube.com/watch" in URL:
 
 r = ydl.extract_info(URL, download=False)
 
-command1 = f'yt-dlp --skip-download --cookies 1.txt --mark-watched {URL}'
-subprocess.call(command1)
+command_mark_watched = f'yt-dlp --skip-download --cookies 1.txt --mark-watched {URL}'
+subprocess.call(command_mark_watched)
+
 link = (r['url'])
 command = f'{VLC_PATH} "{link}"'
 subprocess.call(command)
