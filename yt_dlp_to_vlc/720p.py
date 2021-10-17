@@ -7,6 +7,7 @@ VLC_PATH = "C:\\Program Files\\VideoLAN\\VLC\\vlc.exe"
 
 ydl = YoutubeDL({
     'format': '22',
+    
 })
 
 # print('Youtube_to_VLC'.center(70, '_'))
@@ -21,6 +22,8 @@ if not "youtube.com/watch" in URL:
 
 r = ydl.extract_info(URL, download=False)
 
+command1 = f'yt-dlp --skip-download --cookies 1.txt --mark-watched {URL}'
+subprocess.call(command1)
 link = (r['url'])
 command = f'{VLC_PATH} "{link}"'
 subprocess.call(command)
