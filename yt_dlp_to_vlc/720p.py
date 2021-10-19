@@ -9,8 +9,6 @@ ydl = YoutubeDL({
     'format': '22',
 })
 
-# print('Youtube_to_VLC'.center(70, '_'))
-# URL = input('Enter youtube url :  ')
 win32clipboard.OpenClipboard()
 URL = win32clipboard.GetClipboardData()
 win32clipboard.CloseClipboard()
