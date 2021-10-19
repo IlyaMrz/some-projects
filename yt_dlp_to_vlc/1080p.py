@@ -12,13 +12,11 @@ import win32clipboard
 VLC_PATH = "C:\\Program Files\\VideoLAN\\VLC\\vlc.exe"
 
 
-def setPropsToYT_dl(format_ID):
-    return YoutubeDL({
-        'format': format_ID,
-    })
+def direct_link(format_ID):
+    yt_data = YoutubeDL({'format': format_ID})
+    link = yt_data.extract_info(URL, download=False)['url']
+    return link
 
-
-ydl_a = setPropsToYT_dl('251')
 
 video_formats = ['299', '137', '248', '303', '335', '399', '699']  # 1080
 
@@ -35,23 +33,23 @@ if len(URL.split(',')) == 2:
     URL, frmt = URL.split(',')
     format_index = video_formats.index(str(frmt))
 
-audio_url = ydl_a.extract_info(URL, download=False)['url']
+audio_url = direct_link('251')
 
 
 def getVideoUrl(format_index):
     if format_index == 7:
         exit()
     try:
-        ydl_v = setPropsToYT_dl(video_formats[format_index])
-        video_url = ydl_v.extract_info(URL, download=False)['url']
+        video_url = direct_link(video_formats[format_index])
         return video_url
     except:
         format_index = format_index+1
         return getVideoUrl(format_index)
 
-#mark as watched
+# mark as watched
 #command_mark_watched = f'yt-dlp --skip-download --cookies 1.txt --mark-watched {URL}'
-#subprocess.call(command_mark_watched)
+# subprocess.call(command_mark_watched)
+
 
 video_url = getVideoUrl(format_index)
 command = f'{VLC_PATH} {video_url} --input-slave={audio_url}'
