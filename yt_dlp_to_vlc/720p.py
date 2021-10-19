@@ -7,7 +7,6 @@ VLC_PATH = "C:\\Program Files\\VideoLAN\\VLC\\vlc.exe"
 
 ydl = YoutubeDL({
     'format': '22',
-
 })
 
 # print('Youtube_to_VLC'.center(70, '_'))
