@@ -34,7 +34,7 @@ if len(URL.split(',')) == 2:
     URL, frmt = URL.split(',')
     format_index = video_formats.index(str(frmt))
 
-audio_url = direct_link('251')
+audio_url = direct_link('bestaudio/best')
 
 
 def getVideoUrl(format_index):
