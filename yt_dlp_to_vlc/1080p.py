@@ -10,6 +10,7 @@ import win32clipboard
 # if u wanna use certain format use clipboard => URL,ID
 
 VLC_PATH = "C:\\Program Files\\VideoLAN\\VLC\\vlc.exe"
+COOKIE_PATH = '' # txt
 
 
 def direct_link(format_ID):
@@ -47,7 +48,7 @@ def getVideoUrl(format_index):
         return getVideoUrl(format_index)
 
 # mark as watched
-#command_mark_watched = f'yt-dlp --skip-download --cookies 1.txt --mark-watched {URL}'
+#command_mark_watched = f'yt-dlp --skip-download --cookies {COOKIE_PATH} --mark-watched {URL}'
 # subprocess.call(command_mark_watched)
 
 

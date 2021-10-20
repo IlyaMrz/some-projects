@@ -4,6 +4,7 @@ from yt_dlp import YoutubeDL
 import win32clipboard
 
 VLC_PATH = "C:\\Program Files\\VideoLAN\\VLC\\vlc.exe"
+COOKIE_PATH = '' #txt
 
 ydl = YoutubeDL({
     'format': '22',
@@ -20,7 +21,7 @@ if not "youtube.com/watch" in URL:
 link = ydl.extract_info(URL, download=False)['url']
 
 # mark as watched
-#command_mark_watched = f'yt-dlp --skip-download --cookies 1.txt --mark-watched {URL}'
+#command_mark_watched = f'yt-dlp --skip-download --cookies {COOKIE_PATH} --mark-watched {URL}'
 # subprocess.call(command_mark_watched)
 
 command = f'{VLC_PATH} "{link}"'
