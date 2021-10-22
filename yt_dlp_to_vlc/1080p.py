@@ -11,6 +11,7 @@ import win32clipboard
 
 VLC_PATH = "C:\\Program Files\\VideoLAN\\VLC\\vlc.exe"
 COOKIE_PATH = ''  # txt
+PATH_720p = '720p.py'
 
 
 def direct_link(format_ID):
@@ -39,7 +40,11 @@ audio_url = direct_link('bestaudio')
 
 def getVideoUrl(format_index):
     if format_index == 7:
-        exit()
+        try:
+            subprocess.call(f'python {PATH_720p}')
+            exit()
+        except:
+            exit()
     try:
         video_url = direct_link(video_formats[format_index])
         return video_url
