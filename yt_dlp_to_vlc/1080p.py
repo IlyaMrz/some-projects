@@ -10,7 +10,7 @@ import win32clipboard
 # if u wanna use certain format use clipboard => URL,ID
 
 VLC_PATH = "C:\\Program Files\\VideoLAN\\VLC\\vlc.exe"
-COOKIE_PATH = '' # txt
+COOKIE_PATH = ''  # txt
 
 
 def direct_link(format_ID):
@@ -34,7 +34,7 @@ if len(URL.split(',')) == 2:
     URL, frmt = URL.split(',')
     format_index = video_formats.index(str(frmt))
 
-audio_url = direct_link('bestaudio/best')
+audio_url = direct_link('bestaudio')
 
 
 def getVideoUrl(format_index):
