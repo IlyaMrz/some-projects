@@ -41,6 +41,7 @@ audio_url = direct_link('bestaudio')
 def getVideoUrl(format_index):
     if format_index == 7:
         try:
+            print("1080p not available, going for 720p or lower...")
             subprocess.call(f'python {PATH_720p}')
             exit()
         except:
