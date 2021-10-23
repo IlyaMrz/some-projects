@@ -31,7 +31,7 @@ if not "youtube.com/watch" in URL:
     URL = input('Enter youtube url :  ')
 
 format_index = 0
-if len(URL.split(',')) == 2:
+if ',' in URL:
     URL, frmt = URL.split(',')
     format_index = video_formats.index(str(frmt))
 
