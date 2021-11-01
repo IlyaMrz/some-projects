@@ -26,7 +26,7 @@ win32clipboard.OpenClipboard()
 URL = win32clipboard.GetClipboardData()
 win32clipboard.CloseClipboard()
 
-if not "youtu" in URL:
+if (not "youtu" in URL) and (not "twitch" in URL):
     print('Youtube_to_VLC'.center(70, '_'))
     URL = input('Enter youtube url :  ')
 
@@ -36,8 +36,7 @@ if (',' in URL) and ("youtu" in URL):
     URL, frmt = URL.split(',')
     format_index = video_formats.index(str(frmt))
 
-if (',' in URL) and ("twitch" in URL):
-    URL, frmt = URL.split(',')
+if "twitch" in URL:
     try:
         video_url = direct_link('1080p__source_')
     except:
