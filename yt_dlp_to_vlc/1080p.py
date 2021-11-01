@@ -36,6 +36,17 @@ if (',' in URL) and ("youtu" in URL):
     URL, frmt = URL.split(',')
     format_index = video_formats.index(str(frmt))
 
+if (',' in URL) and ("twitch" in URL):
+    URL, frmt = URL.split(',')
+    try:
+        video_url = direct_link('1080p__source_')
+    except:
+        video_url = direct_link('1080p')
+    command = f'{VLC_PATH} {video_url}'
+    subprocess.call(command)
+    exit()
+
+
 audio_url = direct_link('bestaudio')
 
 
