@@ -12,6 +12,7 @@ import win32clipboard
 VLC_PATH = "C:\\Program Files\\VideoLAN\\VLC\\vlc.exe"
 COOKIE_PATH = ''  # txt
 PATH_720p = '720p.py'
+twitch_formats = ['1080p__source_', '1080p', '1080p50']
 
 
 def direct_link(format_ID):
@@ -36,16 +37,17 @@ if (',' in URL) and ("youtu" in URL):
     URL, frmt = URL.split(',')
     format_index = video_formats.index(str(frmt))
 
+
 if "twitch" in URL:
-    try:
-        video_url = direct_link('1080p__source_')
-    except:
+    for f in twitch_formats:
         try:
-            video_url = direct_link('1080p')
+            print(f'tryin {f}')
+            video_url = direct_link(f)
+            command = f'{VLC_PATH} {video_url}'
+            subprocess.call(command)
+            break
         except:
-            video_url = direct_link('1080p50')
-    command = f'{VLC_PATH} {video_url}'
-    subprocess.call(command)
+            continue
     exit()
 
 
