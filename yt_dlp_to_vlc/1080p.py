@@ -40,7 +40,10 @@ if "twitch" in URL:
     try:
         video_url = direct_link('1080p__source_')
     except:
-        video_url = direct_link('1080p')
+        try:
+            video_url = direct_link('1080p')
+        except:
+            video_url = direct_link('1080p50')
     command = f'{VLC_PATH} {video_url}'
     subprocess.call(command)
     exit()
