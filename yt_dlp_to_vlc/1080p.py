@@ -12,7 +12,10 @@ import win32clipboard
 VLC_PATH = "C:\\Program Files\\VideoLAN\\VLC\\vlc.exe"
 COOKIE_PATH = ''  # txt
 PATH_720p = '720p.py'
+
 TWITCH_FORMATS = ['1080p__source_', '1080p', '1080p50']
+VIDEO_FORMATS = ['299', '137', '248', '303',
+                 '335', '399', '699']  # 1080 youtube
 
 
 def direct_link(format_ID):
@@ -20,8 +23,6 @@ def direct_link(format_ID):
     link = yt_data.extract_info(URL, download=False)['url']
     return link
 
-
-VIDEO_FORMATS = ['299', '137', '248', '303', '335', '399', '699']  # 1080
 
 win32clipboard.OpenClipboard()
 URL = win32clipboard.GetClipboardData()
