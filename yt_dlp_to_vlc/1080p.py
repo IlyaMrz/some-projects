@@ -12,7 +12,7 @@ import win32clipboard
 VLC_PATH = "C:\\Program Files\\VideoLAN\\VLC\\vlc.exe"
 COOKIE_PATH = ''  # txt
 PATH_720p = '720p.py'
-twitch_formats = ['1080p__source_', '1080p', '1080p50']
+TWITCH_FORMATS = ['1080p__source_', '1080p', '1080p50']
 
 
 def direct_link(format_ID):
@@ -21,7 +21,7 @@ def direct_link(format_ID):
     return link
 
 
-video_formats = ['299', '137', '248', '303', '335', '399', '699']  # 1080
+VIDEO_FORMATS = ['299', '137', '248', '303', '335', '399', '699']  # 1080
 
 win32clipboard.OpenClipboard()
 URL = win32clipboard.GetClipboardData()
@@ -35,11 +35,11 @@ format_index = 0
 
 if (',' in URL) and ("youtu" in URL):
     URL, frmt = URL.split(',')
-    format_index = video_formats.index(str(frmt))
+    format_index = VIDEO_FORMATS.index(str(frmt))
 
 
 if "twitch" in URL:
-    for f in twitch_formats:
+    for f in TWITCH_FORMATS:
         try:
             print(f'tryin {f}')
             video_url = direct_link(f)
@@ -63,7 +63,7 @@ def getVideoUrl(format_index):
         except:
             exit()
     try:
-        video_url = direct_link(video_formats[format_index])
+        video_url = direct_link(VIDEO_FORMATS[format_index])
         return video_url
     except:
         format_index = format_index+1
