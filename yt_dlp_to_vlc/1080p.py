@@ -3,7 +3,6 @@ import subprocess
 from yt_dlp import YoutubeDL
 import win32clipboard
 import os
-import re
 
 # youtub's format_ID:
 # https://gist.github.com/AgentOak/34d47c65b1d28829bb17c24c04a0096f#dash-video
