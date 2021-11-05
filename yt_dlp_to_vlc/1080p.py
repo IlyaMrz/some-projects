@@ -2,6 +2,8 @@
 import subprocess
 from yt_dlp import YoutubeDL
 import win32clipboard
+import os
+import re
 
 # youtub's format_ID:
 # https://gist.github.com/AgentOak/34d47c65b1d28829bb17c24c04a0096f#dash-video
@@ -12,6 +14,7 @@ import win32clipboard
 VLC_PATH = "C:\\Program Files\\VideoLAN\\VLC\\vlc.exe"
 COOKIE_PATH = ''  # txt
 PATH_720p = '720p.py'
+SUB_PATH = ''  # to enable subtitles add '/s' to end of yt url
 
 TWITCH_FORMATS = ['1080p__source_', '1080p', '1080p50']
 VIDEO_FORMATS = ['299', '137', '248', '303',
@@ -54,6 +57,16 @@ if "twitch" in URL:
 
 audio_url = direct_link('bestaudio')
 
+if URL[-2:] == '/s':
+    SUB_PATH = 'sub.en.vtt'
+    command_downl_subtitles = f'yt-dlp --sub-lang en --write-sub --sub-format vtt --skip-download -o "sub.%(ext)s" {URL}'
+    subprocess.call(command_downl_subtitles)
+    if not os.path.isfile(SUB_PATH):
+        command_downl_subtitles = f'yt-dlp --sub-lang en --write-auto-sub --sub-format vtt --skip-download -o "sub.%(ext)s" {URL}'
+        subprocess.call(command_downl_subtitles)
+    if not os.path.isfile(SUB_PATH):
+        SUB_PATH = ''
+
 
 def getVideoUrl(format_index):
     if format_index == 7:
@@ -76,5 +89,8 @@ def getVideoUrl(format_index):
 
 
 video_url = getVideoUrl(format_index)
-command = f'{VLC_PATH} {video_url} --input-slave={audio_url}'
+command = f'{VLC_PATH} {video_url} --input-slave={audio_url} --sub-file={SUB_PATH}'
 subprocess.call(command)
+
+if SUB_PATH:
+    os.remove(SUB_PATH)
