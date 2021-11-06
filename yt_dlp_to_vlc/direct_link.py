@@ -23,15 +23,16 @@ subprocess.call(command_get_formats)
 
 print('Choose a format'.center(70, '_'))
 ur_format_ID = input('Enter your format :  ')
-user_input = 'input'
+user_input = ur_format_ID
 
 while user_input:
-    link = direct_link(ur_format_ID)
+    if user_input == ur_format_ID:
+        link = direct_link(ur_format_ID)
     user_input = input("""
     Press enter to exit... 
     or format ID to run again:  
     or g to run link above in VLC:
-    
+
     """)
     if user_input == 'g':
         command = f'{VLC_PATH} {link}'
