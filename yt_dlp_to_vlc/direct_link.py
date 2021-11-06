@@ -22,4 +22,4 @@ ur_format_ID = input('Enter your format :  ')
 
 while ur_format_ID:
     direct_link(ur_format_ID)
-    ur_format_ID = input('Press enter to exit... or format number to run again:  ')
+    ur_format_ID = input('Press enter to exit... or format ID to run again:  ')
