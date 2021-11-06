@@ -70,6 +70,8 @@ if URL[-2:] == '/s':
 
 def getVideoUrl(format_index):
     if format_index == 7:
+        if SUB_PATH:
+            os.remove(SUB_PATH)
         try:
             print("1080p not available, going for 720p or lower...")
             subprocess.call(f'python {PATH_720p}')
