@@ -57,6 +57,7 @@ if "twitch" in URL:
 audio_url = direct_link('bestaudio')
 
 if URL[-2:] == '/s':
+    URL=URL[:-2]
     SUB_PATH = 'sub.en.vtt'
     command_downl_subtitles = f'yt-dlp --sub-lang en --write-sub --sub-format vtt --skip-download -o "sub.%(ext)s" {URL}'
     subprocess.call(command_downl_subtitles)
