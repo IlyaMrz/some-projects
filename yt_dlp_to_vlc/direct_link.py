@@ -22,8 +22,8 @@ command_get_formats = f'yt-dlp -F {URL}'
 subprocess.call(command_get_formats)
 
 print('Choose a format'.center(70, '_'))
-ur_format_ID = input('Enter your format :  ')
-user_input = ur_format_ID
+user_input = input('Enter your format :  ')
+ur_format_ID = user_input
 
 while user_input:
     if user_input == ur_format_ID:
