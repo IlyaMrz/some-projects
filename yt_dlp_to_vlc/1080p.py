@@ -17,7 +17,7 @@ SUB_PATH = ''  # to enable subtitles add '/s' to end of yt url
 
 TWITCH_FORMATS = ['1080p__source_', '1080p', '1080p50']
 VIDEO_FORMATS = ['299', '137', '248', '303',
-                 '335', '399', '699']  # 1080 youtube
+                 '335', '399', '699']  # 1080p youtube
 
 
 def direct_link(format_ID):
