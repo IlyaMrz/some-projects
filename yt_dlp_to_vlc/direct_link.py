@@ -34,7 +34,7 @@ while user_input:
     or g to run link above in VLC:
 
     """)
-    if user_input == 'g' or user_input = 'п':
+    if user_input == 'g' or user_input == 'п':
         command = f'{VLC_PATH} {link}'
         subprocess.call(command)
     elif user_input:
