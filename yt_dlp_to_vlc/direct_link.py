@@ -31,7 +31,7 @@ while user_input:
     user_input = input("""
     Press enter to exit... 
     or format ID to run again:  
-    or g to run link above in VLC:
+    or g / п to run link above in VLC:
 
     """)
     if user_input == 'g' or user_input == 'п':
