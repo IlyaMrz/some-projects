@@ -48,7 +48,7 @@ print("HEROSDpV39RC_J9JeBYn8A")
 print("obfusc")
 
 
-def count_ch_print(listl):
+def count_ch_nd_print(listl):
     count = {}
     for ch in listl.lower():
         count.setdefault(ch, 0)
