@@ -47,15 +47,14 @@ print("HEROSDpV39RC_J9JeBYn8A")
 
 print("obfusc")
 
-count1 = {}
-count2 = {}
 
-for ch in firstM_in_P[0].lower():
-    count1.setdefault(ch, 0)
-    count1[ch] = count1[ch] + 1
-for ch in secondClmnz[0].lower():
-    count2.setdefault(ch, 0)
-    count2[ch] = count2[ch] + 1
+def count_ch_print(listl):
+    count = {}
+    for ch in listl.lower():
+        count.setdefault(ch, 0)
+        count[ch] = count[ch] + 1
+    pprint.pprint(count)
 
-pprint.pprint(count1)
-pprint.pprint(count2)
+
+count_ch_print(firstM_in_P[0])
+count_ch_print(secondClmnz[0])
