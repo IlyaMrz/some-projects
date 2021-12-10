@@ -15,7 +15,7 @@ COOKIE_PATH = ''  # txt
 PATH_720p = '720p.py'
 SUB_PATH = ''  # to enable subtitles add '/s' to end of yt url
 
-TWITCH_FORMATS = ['1080p__source_', '1080p', '1080p50']
+TWITCH_FORMATS = ['1080p__source_', '1080p60__source_','1080p', '1080p50']
 VIDEO_FORMATS = ['299', '137', '248', '303',
                  '335', '399', '699']  # 1080p youtube
 
