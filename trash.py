@@ -42,7 +42,7 @@ cf0126ca
 2d6229ac""")
 
 
-secondClmnz = ["Zay1!gwHh:S6KArF4Mb"]
+secondChnc__mgnz = ["Zay1!gwHh:S6KArF4Mb"]
 print("HEROSDpV39RC_J9JeBYn8A")
 
 print("obfusc")
